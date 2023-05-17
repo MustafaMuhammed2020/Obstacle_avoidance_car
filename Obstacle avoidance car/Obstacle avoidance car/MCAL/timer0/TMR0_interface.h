@@ -85,7 +85,7 @@ TMR0_delay_error TMR0_delayms(uint32_t u32_a_delayms);
 /** ARGUMENTS  : TAKES DELAY IN ms                                             */
 /** RETURNS    : TMR0_delay                                                    */
 /*******************************************************************************/
-TMR0_delay_error TMR0_delaymicos(uint32_t u32_a_delaymicros);
+TMR0_delay_error TMR0_delaymicros(uint32_t u32_a_delaymicros);
 
 
 #endif

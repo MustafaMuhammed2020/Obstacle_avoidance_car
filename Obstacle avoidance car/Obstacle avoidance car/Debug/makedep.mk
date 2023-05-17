@@ -4,7 +4,11 @@
 
 APP\APP.c
 
+HAL\keypad\KEYPAD_program.c
+
 HAL\lcd\LCD_program.c
+
+HAL\motor\motor_program.c
 
 main.c
 

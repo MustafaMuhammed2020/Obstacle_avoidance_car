@@ -34,6 +34,8 @@ LINKER_SCRIPT_DEP:=
 # Every subdirectory with source files must be described here
 SUBDIRS :=  \
 ../HAL/lcd \
+../HAL/keypad \
+../HAL/motor \
 ../MCAL \
 ../HAL \
 ../APP \
@@ -47,7 +49,9 @@ SUBDIRS :=  \
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../APP/APP.c \
+../HAL/keypad/KEYPAD_program.c \
 ../HAL/lcd/LCD_program.c \
+../HAL/motor/motor_program.c \
 ../main.c \
 ../MCAL/dio/DIO_program.c \
 ../MCAL/int0/INT_program.c \
@@ -63,7 +67,9 @@ ASM_SRCS +=
 
 OBJS +=  \
 APP/APP.o \
+HAL/keypad/KEYPAD_program.o \
 HAL/lcd/LCD_program.o \
+HAL/motor/motor_program.o \
 main.o \
 MCAL/dio/DIO_program.o \
 MCAL/int0/INT_program.o \
@@ -72,7 +78,9 @@ MCAL/timer1/timer1_program.o
 
 OBJS_AS_ARGS +=  \
 APP/APP.o \
+HAL/keypad/KEYPAD_program.o \
 HAL/lcd/LCD_program.o \
+HAL/motor/motor_program.o \
 main.o \
 MCAL/dio/DIO_program.o \
 MCAL/int0/INT_program.o \
@@ -81,7 +89,9 @@ MCAL/timer1/timer1_program.o
 
 C_DEPS +=  \
 APP/APP.d \
+HAL/keypad/KEYPAD_program.d \
 HAL/lcd/LCD_program.d \
+HAL/motor/motor_program.d \
 main.d \
 MCAL/dio/DIO_program.d \
 MCAL/int0/INT_program.d \
@@ -90,7 +100,9 @@ MCAL/timer1/timer1_program.d
 
 C_DEPS_AS_ARGS +=  \
 APP/APP.d \
+HAL/keypad/KEYPAD_program.d \
 HAL/lcd/LCD_program.d \
+HAL/motor/motor_program.d \
 main.d \
 MCAL/dio/DIO_program.d \
 MCAL/int0/INT_program.d \
@@ -118,7 +130,21 @@ APP/APP.o: ../APP/APP.c
 	@echo Finished building: $<
 	
 
+HAL/keypad/KEYPAD_program.o: ../HAL/keypad/KEYPAD_program.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
 HAL/lcd/LCD_program.o: ../HAL/lcd/LCD_program.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+HAL/motor/motor_program.o: ../HAL/motor/motor_program.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

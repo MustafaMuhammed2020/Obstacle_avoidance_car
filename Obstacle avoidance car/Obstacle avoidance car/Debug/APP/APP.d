@@ -15,6 +15,7 @@ APP/APP.d APP/APP.o: ../APP/APP.c \
  ../APP/../MCAL/dio/DIO_interface.h ../APP/../MCAL/int0/INT_interface.h \
  ../APP/../MCAL/timer1/timer1_interface.h \
  ../APP/../HAL/lcd/LCD_interface.h ../APP/../MCAL/timer0/TMR0_interface.h \
+ ../APP/../HAL/motor/motor_interface.h ../APP/../HAL/motor/motor_config.h \
  ../APP/APP.h
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h:
@@ -54,5 +55,9 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 ../APP/../HAL/lcd/LCD_interface.h:
 
 ../APP/../MCAL/timer0/TMR0_interface.h:
+
+../APP/../HAL/motor/motor_interface.h:
+
+../APP/../HAL/motor/motor_config.h:
 
 ../APP/APP.h:
