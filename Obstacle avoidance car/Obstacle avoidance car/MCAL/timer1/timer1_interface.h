@@ -85,15 +85,6 @@ TMR1_status TMR1_init(void);
 /******************************************************************************/
 TMR1_start_status TMR1_start(void);
 
-
-/******************************************************************************/
-/** FUNCTION TO SET DELAY IN MS                                              **/
-/** ARGUMENTS  : VOID                                                        **/
-/** RETURN     : RETURNS THE ERROR STATUS OF DELAY                           **/
-/******************************************************************************/
-TMR1_delay_status TMR1_setdelayms(uint32_t DELAY_MS);
-
-
 /******************************************************************************/
 /** FUNCTION TO STOP TMR1                                                    **/
 /** ARGUMENTS  : VOID                                                        **/
@@ -101,20 +92,21 @@ TMR1_delay_status TMR1_setdelayms(uint32_t DELAY_MS);
 /******************************************************************************/
 TMR1_stop_status TMR1_stop(void);
 
-
-/******************************************************************************/
-/** FUNCTION TO CALCULATE THE NUMBER OF NEEDED OVERFLOWS                     **/
-/** ARGUMENTS  : DELAY IN MS                                                 **/
-/** RETURN     : RETURNS THE NUMBER OF OVS                                   **/
-/******************************************************************************/
-uint32_t TMR1_getovs(uint32_t u32_a_delay);
-
 /******************************************************************************/
 /** FUNCTION TO GET THE VALUE OF TIMER 1 COUNTING REGISTER                   **/
 /** ARGUMENTS  : u16_a_value                                                 **/
 /** RETURN     : VOID                                                        **/
 /******************************************************************************/
 void TMR1_getvalue(uint16t * u16_a_value);
+
+/*******************************************************************************/
+/** FUNCTION TO SET THE VALUE OF TCNT1                                         */
+/** ARGUMENTS  : TAKES DELAY IN ms                                             */
+/** RETURNS    : TMR0_delay                                                    */
+/*******************************************************************************/
+void TMR1_setcounterval(uint16t u16_a_tmrval);
+
+
 
 
 

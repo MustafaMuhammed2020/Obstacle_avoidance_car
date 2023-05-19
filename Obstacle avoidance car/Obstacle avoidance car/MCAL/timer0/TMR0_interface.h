@@ -53,6 +53,9 @@ TMR0_init_error TMR0_init(void);
 
 
 typedef enum {VALID_START , NOT_VALID_START } TMR0_start_error;
+typedef enum {VALID_STOP , NOT_VALID_STOP } TMR0_stop_error;
+typedef enum {VALID_DELAY , NOT_VALID_DELAY } TMR0_delay_error ;
+		
 /*******************************************************************************/
 /** FUNCTION TO LET TIMER 0 START WORK BY ASSIGN PRESCALLER OR CLOCK SOURCE    */
 /** ARGUMENTS  : VOID                                                          */
@@ -60,9 +63,6 @@ typedef enum {VALID_START , NOT_VALID_START } TMR0_start_error;
 /*******************************************************************************/
 TMR0_start_error TMR0_start(void);
 
-
-
-typedef enum {VALID_STOP , NOT_VALID_STOP } TMR0_stop_error;
 /*******************************************************************************/
 /** FUNCTION TO STOP TIMER 0                                                   */
 /** ARGUMENTS  : VOID                                                          */
@@ -70,8 +70,6 @@ typedef enum {VALID_STOP , NOT_VALID_STOP } TMR0_stop_error;
 /*******************************************************************************/
 TMR0_stop_error TMR0_stop(void);
 
-
-typedef enum {VALID_DELAY , NOT_VALID_DELAY } TMR0_delay_error ;
 /*******************************************************************************/
 /** FUNCTION TO SET DELAY USING TIMER 0                                        */
 /** ARGUMENTS  : TAKES DELAY IN ms                                             */
@@ -79,13 +77,13 @@ typedef enum {VALID_DELAY , NOT_VALID_DELAY } TMR0_delay_error ;
 /*******************************************************************************/
 TMR0_delay_error TMR0_delayms(uint32_t u32_a_delayms);
 
-
 /*******************************************************************************/
 /** FUNCTION TO SET DELAY USING TIMER 0                                        */
 /** ARGUMENTS  : TAKES DELAY IN ms                                             */
 /** RETURNS    : TMR0_delay                                                    */
 /*******************************************************************************/
 TMR0_delay_error TMR0_delaymicros(uint32_t u32_a_delaymicros);
+
 
 
 #endif

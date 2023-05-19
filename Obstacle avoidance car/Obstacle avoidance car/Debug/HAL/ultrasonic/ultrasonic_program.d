@@ -1,4 +1,5 @@
-APP/APP.d APP/APP.o: ../APP/APP.c \
+HAL/ultrasonic/ultrasonic_program.d HAL/ultrasonic/ultrasonic_program.o: \
+ ../HAL/ultrasonic/ultrasonic_program.c \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
@@ -11,13 +12,13 @@ APP/APP.d APP/APP.o: ../APP/APP.c \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\version.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\fuse.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h \
- ../APP/../SERVICE/common_macros.h ../APP/../SERVICE/standard_types.h \
- ../APP/../MCAL/dio/DIO_interface.h ../APP/../MCAL/int0/INT_interface.h \
- ../APP/../MCAL/timer1/timer1_interface.h \
- ../APP/../HAL/lcd/LCD_interface.h ../APP/../MCAL/timer0/TMR0_interface.h \
- ../APP/../HAL/motor/motor_interface.h ../APP/../HAL/motor/motor_config.h \
- ../APP/../HAL/icu/ICU_interface.h \
- ../APP/../HAL/ultrasonic/ultrasonic_interface.h ../APP/APP.h
+ ../HAL/ultrasonic/../../SERVICE/common_macros.h \
+ ../HAL/ultrasonic/../../SERVICE/standard_types.h \
+ ../HAL/ultrasonic/../../MCAL/dio/DIO_interface.h \
+ ../HAL/ultrasonic/../../MCAL/timer0/TMR0_interface.h \
+ ../HAL/ultrasonic/ultrasonic_interface.h \
+ ../HAL/ultrasonic/ultrasonic_private.h \
+ ../HAL/ultrasonic/ultrasonic_config.h
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h:
 
@@ -43,26 +44,16 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h:
 
-../APP/../SERVICE/common_macros.h:
+../HAL/ultrasonic/../../SERVICE/common_macros.h:
 
-../APP/../SERVICE/standard_types.h:
+../HAL/ultrasonic/../../SERVICE/standard_types.h:
 
-../APP/../MCAL/dio/DIO_interface.h:
+../HAL/ultrasonic/../../MCAL/dio/DIO_interface.h:
 
-../APP/../MCAL/int0/INT_interface.h:
+../HAL/ultrasonic/../../MCAL/timer0/TMR0_interface.h:
 
-../APP/../MCAL/timer1/timer1_interface.h:
+../HAL/ultrasonic/ultrasonic_interface.h:
 
-../APP/../HAL/lcd/LCD_interface.h:
+../HAL/ultrasonic/ultrasonic_private.h:
 
-../APP/../MCAL/timer0/TMR0_interface.h:
-
-../APP/../HAL/motor/motor_interface.h:
-
-../APP/../HAL/motor/motor_config.h:
-
-../APP/../HAL/icu/ICU_interface.h:
-
-../APP/../HAL/ultrasonic/ultrasonic_interface.h:
-
-../APP/APP.h:
+../HAL/ultrasonic/ultrasonic_config.h:

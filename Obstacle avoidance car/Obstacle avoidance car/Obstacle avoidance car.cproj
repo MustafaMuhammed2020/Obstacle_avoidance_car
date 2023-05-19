@@ -126,6 +126,15 @@
     <Compile Include="APP\APP.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="HAL\icu\ICU_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\icu\ICU_interface.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\icu\ICU_program.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="HAL\keypad\KEYPAD_config.h">
       <SubType>compile</SubType>
     </Compile>
@@ -160,6 +169,18 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="HAL\motor\motor_program.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\ultrasonic\ultrasonic_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\ultrasonic\ultrasonic_interface.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\ultrasonic\ultrasonic_private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\ultrasonic\ultrasonic_program.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
@@ -224,6 +245,8 @@
     <Folder Include="HAL\lcd" />
     <Folder Include="HAL\keypad" />
     <Folder Include="HAL\motor" />
+    <Folder Include="HAL\icu" />
+    <Folder Include="HAL\ultrasonic" />
     <Folder Include="MCAL" />
     <Folder Include="HAL" />
     <Folder Include="APP" />

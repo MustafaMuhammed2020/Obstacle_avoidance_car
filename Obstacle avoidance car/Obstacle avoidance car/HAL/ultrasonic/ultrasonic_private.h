@@ -1,23 +1,17 @@
 /***************************************************************/
 /** Author  : Mustafa Mohammed Abdou                          **/
-/** Date    : 16 May , 2021                                   **/
+/** Date    : 17 May , 2023                                   **/
 /** Version : V01                                             **/
+/** Hint    : private file of ultrasonic sensor               **/
 /***************************************************************/
 
 
 
-#include "APP/APP.h"
+#ifndef ULTRASONIC_PRIVATE_H_
+#define ULTRASONIC_PRIVATE_H_
 
-int main(void)
-{
-	APP_init();
-	
-    /* Replace with your application code */
-    while (1) 
-    {
-		APP_start();
-    }
 
-	return 0 ;
-}
 
+
+
+#endif /* ULTRASONIC_PRIVATE_H_ */

@@ -50,6 +50,13 @@ MOTOR_init_status MOTOR_rotateanticlkdir(uint8_t u8_a_motorid);
 MOTOR_init_status MOTOR_turnoff(uint8_t u8_a_motorid);
 
 /*****************************************************************/
+/** FUNCTION TO START MOTOR ROTATION                            **/
+/** ARGUMENTS  : MOTOR ID                                       **/
+/** RETURN     :  MOTOR INIT ERROR STATUS                       **/
+/*****************************************************************/
+MOTOR_init_status MOTOR_turnon(uint8_t u8_a_motorid);
+
+/*****************************************************************/
 /** FUNCTION TO SET THE MOTOR DUTY CYCLE                        **/
 /** ARGUMENTS  : MOTOR ID                                       **/
 /** RETURN     :  MOTOR INIT ERROR STATUS                       **/

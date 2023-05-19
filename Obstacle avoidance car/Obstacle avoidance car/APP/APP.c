@@ -17,29 +17,40 @@
 #include "../MCAL/timer0/TMR0_interface.h"
 #include "../HAL/motor/motor_interface.h"
 #include "../HAL/motor/motor_config.h"
+#include "../HAL/icu/ICU_interface.h"
+#include "../HAL/ultrasonic/ultrasonic_interface.h"
 
 /** INCLUDE DRIVER FILES **/
 #include "APP.h"
 
-uint8_t u8_g_edge  ;  /** GLOBAL COUNTER FOR NUMBER OF EDGES **/
+uint16t u16_g_distance1 = 0   ;
+uint16t u16_g_distance2 = 0  ;
+uint32_t u32_g_distance  = 0  ;
+uint16t u8_echoedge = 0 ;    /** GLOBAL VARIABLE FOR THE ECHO PULSE STATE **/
+
+
+uint8_t counter = 0  ;  /** GLOBAL COUNTER FOR NUMBER OF EDGES **/
 uint16t u16_g_time ; /** GLOBAL VARIABLE FOR TIME **/
 
 void APP_init()
 {
-	u8_g_edge = 0 ,  u16_g_time = 0 ; /** INITIALIZATION FOR EDGES COUNTER **/
+	u16_g_time = 0 ; /** INITIALIZATION FOR EDGES COUNTER **/
 	
-	DIO_setpindir(DIO_PORTD , DIO_PIN2 , DIO_PIN_INPUT); /** INT0 PIN **/
+	//DIO_setpindir(DIO_PORTD , DIO_PIN2 , DIO_PIN_INPUT); /** INT0 PIN **/
 	
-	INT0_init(); /** INITIALIZE INT0 **/
+// 	INT0_init(); /** INITIALIZE INT0 **/
+// 	TMR1_init(); /** INITIALIZE TIMER1 **/
+
+    ICU_init(); /** INITIALIZE ICU **/
+
+	US_init(); /** INITILAIZATION ULTRASONIC MODULE **/
 	
 	TMR0_init(); /** INITIALIZE TIMER0 **/
-	
-	TMR1_init(); /** INITIALIZE TIMER1 **/
 	
 	LCD_init(); /** INITIALIZE LCD **/
 	
 	TMR0_delayms(50); /** DELAY FOR LCD INITIALIZATION **/
-	
+
 	MOTOR_init(MOTOR1_ID); /** INITIALIZE 4 MOTORS **/
 	MOTOR_init(MOTOR2_ID);
 	MOTOR_init(MOTOR3_ID);
@@ -50,57 +61,63 @@ void APP_init()
 	MOTOR_rotateclkdir(MOTOR3_ID);
 	MOTOR_rotateclkdir(MOTOR4_ID);
 	
-	
+	LCD_goto(0,1);
+	LCD_writeint(23);
+	TMR0_delayms(500);
 }
 
 
 void APP_start()
 {
-	//MOTOR_applyspeed(MOTOR1_ID , speed_50);
+
+	US_sendtrigger(); /** SEND TRIGGER **/
+	LCD_goto(0,1);
 	
-	DIO_setpinvalue(MOTOR1_PORT , MOTOR1_ENABLE_PIN , DIO_PIN_HIGH);
+	u32_g_distance = (u16_g_time/464) ;
 	
-// 	DIO_setpinvalue(MOTOR1_PORT , MOTOR1_ENABLE_PIN , DIO_PIN_HIGH);
- 	TMR0_delaymicros(64);
-// 	
- 	DIO_setpinvalue(MOTOR1_PORT , MOTOR1_ENABLE_PIN , DIO_PIN_LOW);
- 	TMR0_delaymicros(64);
-	//MOTOR_applyspeed(MOTOR2_ID , speed_50);
-	//MOTOR_applyspeed(MOTOR3_ID , speed_50);
-	//MOTOR_applyspeed(MOTOR4_ID , speed_50);
-	
-	
-// 	LCD_goto(0 , 1);
-// 	LCD_writeint(u16_g_time);
-// 	TMR0_delayms(1000);
-// 	
-// 	LCD_sendcmd(LCD_CLEAR);
-// 	TMR0_delayms(20);
+	LCD_writeint(u32_g_distance);
+
+// 	if(u32_g_distance > 0 && u32_g_distance > 40)
+// 	{
+// 			MOTOR_turnon(MOTOR1_ID);
+// 			MOTOR_turnon(MOTOR2_ID);
+// 			MOTOR_turnon(MOTOR3_ID);
+// 			MOTOR_turnon(MOTOR4_ID);
+// 			TMR0_delaymicros(3200);
+// 			
+// 			MOTOR_turnoff(MOTOR1_ID);
+// 			MOTOR_turnoff(MOTOR2_ID);
+// 			MOTOR_turnoff(MOTOR3_ID);
+// 			MOTOR_turnoff(MOTOR4_ID);
+// 			TMR0_delaymicros(3200);
+// 
+// 	}
 	
 }
 
 
-ISR(INT0_vect) /** ISR OF INT0 **/
+ISR(INT0_vect)
 {
-	MOTOR_turnoff(MOTOR1_ID);
-	MOTOR_turnoff(MOTOR2_ID);
-	MOTOR_turnoff(MOTOR3_ID);
-	MOTOR_turnoff(MOTOR4_ID);
+	counter++ ;
 	
-// 	if (u8_g_edge == 0 ) 
-// 	{
-// 		TMR1_start();
-// 		
-// 		u8_g_edge = 1 ;
-// 	}
-// 	
-//  	else if (u8_g_edge == 1 ) 
-//  	{
-//  		TMR1_stop(); 
-// 		 
-// 		TMR1_getvalue(&u16_g_time);
-// 		 
-// 		u8_g_edge = 0 ; /** REINITIALIZE THE EDGES COUNTER TO 0 **/
-// 	}
+	if(counter == 1)
+	{
+		ICU_start(); /** START ICU / COUNTING **/
+	}
 	
+	else if(counter == 2)
+	{
+		ICU_stop(); /** STOP ICU / COUNTING **/
+		
+		u16_g_time = ICU_getvalue(); /** GET PULSE LENGTH **/
+		
+		ICU_setcounterval(0); /** START COUNTING FROM ZERO **/
+		
+		counter = 0 ;
+	}
+}
+
+ISR(TIMER1_OVF_vect)
+{
+	/** DO NOTHING **/
 }

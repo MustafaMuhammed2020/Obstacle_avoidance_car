@@ -437,6 +437,8 @@ TMR1_start_status TMR1_start(void)
 {
   TMR1_start_status en_a_startstatus = TMR1_NOT_VALID_START ; /** VARIABLE TO HOLD THE RETURN STATUS **/
   
+  TCNT1 = 0 ;   /** SET THE INITIAL VALUE IN TCNT1 REGISTER **/
+  
   #if TMR1_CLK_SOURCE == TMR1_INTERNAL_CLK_SOURCE /** ALLOWED ONLY IF INTERNAL CLK SOURCE **/
 	 
          /** SET THE VALUES OF CONFIGURED PRESCALLER **/ 
@@ -479,77 +481,6 @@ TMR1_start_status TMR1_start(void)
 }
 
 
-
-/******************************************************************************/
-/** FUNCTION TO SET DELAY IN MS                                              **/
-/** ARGUMENTS  : VOID                                                        **/
-/** RETURN     : RETURNS THE ERROR STATUS OF DELAY                           **/
-/******************************************************************************/
-TMR1_delay_status TMR1_setdelayms(uint32_t DELAY_MS)
-{
-	uint32_t u32_a_overflowcounter = 0 ;
-	
-	TMR1_delay_status en_a_delaystatus = TMR1_NOT_VALID_DELAY   ; /** VARIABLE TO RETURN THE STATUS **/
-	
-	/***************************************************************************/
-	/**            THESE CALCULATIONS ARE DONE USING F_CPU = 1 MHZ            **/
-	/***************************************************************************/
-	
-	#if TMR1_PRESCALLER_VALUE == PRESCALER_1024  /** CHECK THE PRESCALLER FROM CONFIG FILE **/
-	 
-        u32_gs_NO_OF_OVS = (DELAY_MS / 67108864);   /** CALCULATING NUMBER OF OVERFLOWS ( DESIRED DELAY / TIME OF OVER FLOW ) **/ 
-	
-        TCNT1 = 0 ;   /** SET THE INITIAL VALUE IN TCNT1 REGISTER **/
-	
-	  en_a_delaystatus = TMR1_VALID_DELAY ; /** VALID DELAY CONFIGURATIN **/
-	
-	#elif TMR1_PRESCALLER_VALUE == PRESCALER_256
-
-	  u32_gs_NO_OF_OVS = (DELAY_MS / 16777.216);   /** CALCULATING NUMBER OF OVERFLOWS ( DESIRED DELAY / TIME OF OVER FLOW ) **/
-	
-	  TCNT1 = 0 ;   /** SET THE INITIAL VALUE IN TCNT REGISTER **/
-	
-	  en_a_delaystatus = TMR1_VALID_DELAY ; /** VALID DELAY CONFIGURATIN **/
-	
-	#elif TMR1_PRESCALLER_VALUE == PRESCALER_64
-		
-	  u32_gs_NO_OF_OVS = (DELAY_MS / 4194.304);   /** CALCULATING NUMBER OF OVERFLOWS ( DESIRED DELAY / TIME OF OVER FLOW ) **/
-	
-	  TCNT1 = 0 ;   /** SET THE INITIAL VALUE IN TCNT1 REGISTER **/
-	
-	  en_a_delaystatus = TMR1_VALID_DELAY ; /** VALID DELAY CONFIGURATIN **/
-	
-	#elif TMR1_PRESCALLER_VALUE == NO_PRESCALER
-	
-	  u32_gs_NO_OF_OVS = (DELAY_MS / 65.536);   /** CALCULATING NUMBER OF OVERFLOWS ( DESIRED DELAY / TIME OF OVER FLOW ) **/
-	
-	  TCNT1 = 0 ;   /** SET THE INITIAL VALUE IN TCNT1 REGISTER **/
-	
-	  en_a_delaystatus = TMR1_VALID_DELAY ; /** VALID DELAY CONFIGURATIN **/
-	
-	#endif
-        
-     TMR1_start();  /** START TMR1 **/
- 	
- 	while ( u32_a_overflowcounter < u32_gs_NO_OF_OVS ) /** STUCK IN THIS LOOP UNTILL THIS CONDITION IS FALSE **/ 		
- 	{
-  
- 	  while( (TIFR & (1 << 2)) == 0); /** DO NOTHING UNTILL THIS FLAG RAISED (OVERFLOW HAPPENED) **/
- 
- 		set_bit(TIFR , 2);        /** CLEAR THE FLAG BY SOFTWARE **/ 			
- 		u32_a_overflowcounter++ ; /** INCREASE THE OVERFLOWS BY ONE **/
- 			
- 	}
- 		
- 	u32_a_overflowcounter = 0 ; /** REINTIALIZE THE OVERFLOWS COUNTER TO 0 AGAIN **/
- 
- 		 
- 	TMR1_stop();     /** STOP TMR1 TO START FROM 0 WHEN IT CALLED AGAIN **/
-	
-	
-    return en_a_delaystatus ; /** RETURN THE FINAL STATUS **/
-}
-
 /******************************************************************************/
 /** FUNCTION TO STOP TMR1                                                    **/
 /** ARGUMENTS  : VOID                                                        **/
@@ -572,44 +503,6 @@ TMR1_stop_status TMR1_stop(void)
 
 
 /******************************************************************************/
-/** FUNCTION TO CALCULATE THE NUMBER OF NEEDED OVERFLOWS                     **/
-/** ARGUMENTS  : DELAY IN MS                                                 **/
-/** RETURN     : RETURNS THE NUMBER OF OVS                                   **/
-/******************************************************************************/
-uint32_t TMR1_getovs(uint32_t u32_a_delay)
-{
-	uint32_t u32_a_ovs = 0 ;
-	
-	/********************************************************************/
-	/**      THIS CALCULATIONS ARE DONE ON 1 MHZ F_CPU                 **/
-	/********************************************************************/
-	#if TMR1_PRESCALLER_VALUE == PRESCALER_1024  /** CHECK THE PRESCALLER FROM CONFIG FILE **/
-	
-	u32_a_ovs = (u32_a_delay / 67108864);   /** CALCULATING NUMBER OF OVERFLOWS ( DESIRED DELAY / TIME OF OVER FLOW ) **/
-	
-
-	#elif TMR1_PRESCALLER_VALUE == PRESCALER_256
-
-	u32_a_ovs = (u32_a_delay / 16777.216);   /** CALCULATING NUMBER OF OVERFLOWS ( DESIRED DELAY / TIME OF OVER FLOW ) **/
-	
-		
-	#elif TMR1_PRESCALLER_VALUE == PRESCALER_64
-	
-	u32_a_ovs = (u32_a_delay / 4194.304);   /** CALCULATING NUMBER OF OVERFLOWS ( DESIRED DELAY / TIME OF OVER FLOW ) **/
-	
-
-	#elif TMR1_PRESCALLER_VALUE == NO_PRESCALER
-	
-	u32_a_ovs = (u32_a_delay / 65.536);   /** CALCULATING NUMBER OF OVERFLOWS ( DESIRED DELAY / TIME OF OVER FLOW ) **/
-	
-	
-	#endif
-	
-	return u32_a_ovs ;
-}
-
-
-/******************************************************************************/
 /** FUNCTION TO GET THE VALUE OF TIMER 1 COUNTING REGISTER                   **/
 /** ARGUMENTS  : u16_a_value                                                 **/
 /** RETURN     : VOID                                                        **/
@@ -617,4 +510,14 @@ uint32_t TMR1_getovs(uint32_t u32_a_delay)
 void TMR1_getvalue(uint16t * u16_a_value)
 {
 	*u16_a_value = TCNT1 ; /** GET THE VALUE FROM TIMER1 COUNTING REGISTER **/
+}
+
+/*******************************************************************************/
+/** FUNCTION TO SET THE VALUE OF TCNT1                                         */
+/** ARGUMENTS  : TAKES DELAY IN ms                                             */
+/** RETURNS    : TMR0_delay                                                    */
+/*******************************************************************************/
+void TMR1_setcounterval(uint16t u16_a_tmrval)
+{
+	TCNT1 = u16_a_tmrval ; /** SET THE PASSED VALUE IN TIMER COUNTING REGISTER **/
 }
