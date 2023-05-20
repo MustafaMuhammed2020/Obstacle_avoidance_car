@@ -124,28 +124,132 @@ void APP_setentry()
 }
 
 void APP_start()
-{	
+{	u32_g_tick = 0 , u32_g_delay = 0; 
+	
 	US_sendtrigger(); /** SEND TRIGGER **/
 		
 	u8_g_distance = (u16_g_time/464) ; /** CALCULATE THE DISTANCE **/
-	LCD_goto(0,1);
-	LCD_writestr("Distance : ");
-	LCD_writeint(u8_g_distance); /** PRINT THE DISTANCE OVER THE LCD **/
 	
-
-	while(u8_g_distance <= 30)
+	
+	while((u16_g_time/464) > 70) /** CASE NUMBER 1 **/
 	{
+		u32_g_delay =  TMR2_getovs(5000) ; /** GET THE NUMBER OF OVERFLOWS NEEDED FOR 5 SECONDS **/
+
+		TMR2_start() ; /** START TIMER 2 **/
+		
+		while (u32_g_tick < u32_g_delay)
+		{
+			/** MOVE WITH 50% SPEED FOR 5 MIN **/
+			MOTOR_turnon(MOTOR1_ID);
+			MOTOR_turnon(MOTOR2_ID);
+			MOTOR_turnon(MOTOR3_ID);
+			MOTOR_turnon(MOTOR4_ID);
+			TMR0_delaymicros(3200);
+			
+			MOTOR_turnoff(MOTOR1_ID);
+			MOTOR_turnoff(MOTOR2_ID);
+			MOTOR_turnoff(MOTOR3_ID);
+			MOTOR_turnoff(MOTOR4_ID);
+			TMR0_delaymicros(2300);
+		}
+		/** CONTINUE WITH 30% **/
 		MOTOR_turnon(MOTOR1_ID);
 		MOTOR_turnon(MOTOR2_ID);
 		MOTOR_turnon(MOTOR3_ID);
 		MOTOR_turnon(MOTOR4_ID);
-		TMR0_delaymicros(3200);
+		TMR0_delaymicros(1920);
 		
 		MOTOR_turnoff(MOTOR1_ID);
 		MOTOR_turnoff(MOTOR2_ID);
 		MOTOR_turnoff(MOTOR3_ID);
 		MOTOR_turnoff(MOTOR4_ID);
-		TMR0_delaymicros(3200);
+		TMR0_delaymicros(4480);
+		
+		US_sendtrigger(); /** SEND TRIGGER **/
+	}
+	
+	TMR2_stop() ;
+	
+	while((u16_g_time/464) >= 30)
+	{
+		MOTOR_turnon(MOTOR1_ID);
+		MOTOR_turnon(MOTOR2_ID);
+		MOTOR_turnon(MOTOR3_ID);
+		MOTOR_turnon(MOTOR4_ID);
+		TMR0_delaymicros(1920);
+		
+		MOTOR_turnoff(MOTOR1_ID);
+		MOTOR_turnoff(MOTOR2_ID);
+		MOTOR_turnoff(MOTOR3_ID);
+		MOTOR_turnoff(MOTOR4_ID);
+		TMR0_delaymicros(4480);
+		US_sendtrigger(); /** SEND TRIGGER **/
+	}
+	
+	u32_g_tick = 0 ;
+	u32_g_delay =  TMR2_getovs(500) ; /** GET THE NUMBER OF OVERFLOWS NEEDED FOR 5 SECONDS **/
+
+	TMR2_start() ; /** START TIMER 2 **/
+	
+	while((u16_g_time/464) >= 20)
+	{
+		/** STOP THEN ROTATE **/
+		MOTOR_turnoff(MOTOR1_ID);
+		MOTOR_turnoff(MOTOR2_ID);
+		MOTOR_turnoff(MOTOR3_ID);
+		MOTOR_turnoff(MOTOR4_ID);
+		
+		while (u32_g_tick < u32_g_delay)
+		{
+			/** ROTATION **/
+			MOTOR_turnon(MOTOR3_ID);
+			MOTOR_turnon(MOTOR4_ID);
+		}
+		
+		US_sendtrigger(); /** SEND TRIGGER **/
+	}
+	TMR2_stop();
+	
+	while((u16_g_time/464) < 20)
+	{
+		MOTOR_rotateanticlkdir(MOTOR1_ID); /** DEFAULT ROTATION DIRECTION "RIGHT" **/
+		MOTOR_rotateanticlkdir(MOTOR2_ID);
+		MOTOR_rotateanticlkdir(MOTOR3_ID);
+		MOTOR_rotateanticlkdir(MOTOR4_ID);
+		do 
+		{
+			/** GO BACKWARDS WITH 30% SPEED **/
+			MOTOR_turnon(MOTOR1_ID);
+			MOTOR_turnon(MOTOR2_ID);
+			MOTOR_turnon(MOTOR3_ID);
+			MOTOR_turnon(MOTOR4_ID);
+			TMR0_delaymicros(1920);
+			
+			MOTOR_turnoff(MOTOR1_ID);
+			MOTOR_turnoff(MOTOR2_ID);
+			MOTOR_turnoff(MOTOR3_ID);
+			MOTOR_turnoff(MOTOR4_ID);
+			TMR0_delaymicros(4480);
+			
+		} while ((u16_g_time/464) > 20);
+		
+		/** STOP THEN ROTATE **/
+		MOTOR_turnoff(MOTOR1_ID);
+		MOTOR_turnoff(MOTOR2_ID);
+		MOTOR_turnoff(MOTOR3_ID);
+		MOTOR_turnoff(MOTOR4_ID);
+		
+		u32_g_tick = 0 ;
+		u32_g_delay =  TMR2_getovs(500) ; /** GET THE NUMBER OF OVERFLOWS NEEDED FOR 5 SECONDS **/
+		TMR2_start() ; /** START TIMER 2 **/
+		while (u32_g_tick < u32_g_delay)
+		{
+			/** ROTATION **/
+			MOTOR_turnon(MOTOR3_ID);
+			MOTOR_turnon(MOTOR4_ID);
+		}
+		
+		US_sendtrigger(); /** SEND TRIGGER **/
 	}
 }
 
