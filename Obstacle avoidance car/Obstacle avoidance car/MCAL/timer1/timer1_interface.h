@@ -7,9 +7,7 @@
 #ifndef TMR1_INTERFACE_H_
 #define TMR1_INTERFACE_H_
 
-
 #define  F_CPU 8000000  /** DEFINE CPU FREQUENCY **/
-
 
 /* CLOCK SOURCE */
 #define TMR1_INTERNAL_CLK_SOURCE               0
@@ -54,14 +52,11 @@
 #define PRESCALER_1024                         4
 
 
-
 /** TYPEDEF FOR RETURN STATUS OF TMR1_init FUNCTION **/
 typedef enum { TMR1_VALID_INIT  , TMR1_NOT_VALID_INIT } TMR1_status ; 
 
-
 /** TYPEDEF FOR RETURN STATUS OF TMR1_start FUNCTION **/
 typedef enum { TMR1_VALID_START  , TMR1_NOT_VALID_START } TMR1_start_status ; 
-
 
 /** TYPEDEF FOR RETURN STATUS OF TMR1_stop FUNCTION **/
 typedef enum { TMR1_VALID_STOP  , TMR1_NOT_VALID_STOP } TMR1_stop_status ; 
@@ -107,7 +102,12 @@ void TMR1_getvalue(uint16t * u16_a_value);
 void TMR1_setcounterval(uint16t u16_a_tmrval);
 
 
-
+/******************************************************************************/
+/** FUNCTION TO CALCULATE THE NUMBER OF NEEDED OVERFLOWS                     **/
+/** ARGUMENTS  : DELAY IN MS                                                 **/
+/** RETURN     : RETURNS THE NUMBER OF OVS                                   **/
+/******************************************************************************/
+uint32_t TMR1_getovs(uint32_t u32_a_delay);
 
 
 #endif /* TMR1_H_ */

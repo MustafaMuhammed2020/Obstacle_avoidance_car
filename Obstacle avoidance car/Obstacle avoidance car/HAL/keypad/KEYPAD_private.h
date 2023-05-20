@@ -10,13 +10,13 @@
 #define KEYPAD_PRIVATE_H
 
 
-/*Keypad initialization error*/
+/** Keypad initialization error **/
 typedef enum KEYPAD_initError
 {
     KEYPAD_initSuccess,KEYPAD_initFail
 }KEYPAD_initError;
 
-/*Keypad read error*/
+/** Keypad read error **/
 typedef enum KEYPAD_readError
 {
     KEYPAD_readSuccess,KEYPAD_readFail

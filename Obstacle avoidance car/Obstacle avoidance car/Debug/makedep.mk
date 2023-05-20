@@ -4,6 +4,8 @@
 
 APP\APP.c
 
+HAL\button\button_program.c
+
 HAL\icu\ICU_program.c
 
 HAL\keypad\KEYPAD_program.c
@@ -23,4 +25,6 @@ MCAL\int0\INT_program.c
 MCAL\timer0\TMR0_program.c
 
 MCAL\timer1\timer1_program.c
+
+MCAL\timer2\TMR2_program.c
 

@@ -354,3 +354,38 @@ TMR0_delay_error TMR0_delaymicros(uint32_t u32_a_delaymicros)
 	return en_a_delaystatus ; 
 }
 
+/******************************************************************************/
+/** FUNCTION TO CALCULATE THE NUMBER OF OVERFLOWS FOR DELAY IN MS            **/
+/** ARGUMENTS  : DELAY IN MS                                                 **/
+/** RETURN     : RETURNS THE NUMBER OF OVS                                   **/
+/******************************************************************************/
+uint32_t TMR0_getovs(uint16t u16_a_delay)
+{
+	uint32_t u32_a_ovs = 0 ; /** LOCAL VARIABLE TO RETURN THE NUMBER OF OVERFLOWS **/
+	
+	/********************************************************************/
+	/**      THIS CALCULATIONS ARE DONE ON 8 MHZ F_CPU                 **/
+	/********************************************************************/
+	#if TIMER0_PRESCALER_VAL ==  PRESCALER_1024   /** CHECK THE PRESCALLER FROM CONFIG FILE **/
+	
+	u32_a_ovs = (u16_a_delay / 32);   /** CALCULATING NUMBER OF OVERFLOWS ( DESIRED DELAY / TIME OF OVER FLOW ) **/
+	
+
+	#elif TIMER0_PRESCALER_VAL ==  PRESCALER_256 
+
+	u32_a_ovs = (u16_a_delay / 8);   /** CALCULATING NUMBER OF OVERFLOWS ( DESIRED DELAY / TIME OF OVER FLOW ) **/
+	
+	
+	#elif TIMER0_PRESCALER_VAL == PRESCALER_8 
+	
+	u32_a_ovs = (u16_a_delay / 0.256);   /** CALCULATING NUMBER OF OVERFLOWS ( DESIRED DELAY / TIME OF OVER FLOW ) **/
+	
+
+	#elif TIMER0_PRESCALER_VAL == NO_PRESCALER 
+	
+	u32_a_ovs = (u16_a_delay / 0.032);   /** CALCULATING NUMBER OF OVERFLOWS ( DESIRED DELAY / TIME OF OVER FLOW ) **/
+	
+	#endif
+	
+	return u32_a_ovs ;  /** RETURN THE CALCULATED NUMBER OF OVERFLOWS **/
+}

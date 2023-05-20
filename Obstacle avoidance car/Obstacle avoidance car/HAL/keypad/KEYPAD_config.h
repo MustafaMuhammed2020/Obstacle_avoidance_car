@@ -21,20 +21,20 @@
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 /*                                                            Choose Ports                                                          */
 /*----------------------------------------------------------------------------------------------------------------------------------*/
-#define ROW_PORT_DATA     DIO_PORTC    
-#define COLUMN_PORT_DATA  DIO_PORTC    
+#define ROW_PORT_DATA     DIO_PORTD    
+#define COLUMN_PORT_DATA  DIO_PORTD    
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 /*                                                            Choose Pins                                                           */
 /*----------------------------------------------------------------------------------------------------------------------------------*/
-#define R1           DIO_PIN2                  
-#define R2           DIO_PIN3                   
-#define R3           DIO_PIN4                   
-#define R4           DIO_PIN0
+#define R1           DIO_PIN5                  
+#define R2           DIO_PIN6                   
+#define R3           DIO_PIN7                   
 
-#define C1           DIO_PIN5                   
-#define C2           DIO_PIN6                  
-#define C3           DIO_PIN7                   
+
+#define C1           DIO_PIN0                   
+#define C2           DIO_PIN1                  
+#define C3           DIO_PIN4                  
 
 
 

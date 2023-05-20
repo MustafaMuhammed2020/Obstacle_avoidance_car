@@ -521,3 +521,40 @@ void TMR1_setcounterval(uint16t u16_a_tmrval)
 {
 	TCNT1 = u16_a_tmrval ; /** SET THE PASSED VALUE IN TIMER COUNTING REGISTER **/
 }
+
+/******************************************************************************/
+/** FUNCTION TO CALCULATE THE NUMBER OF NEEDED OVERFLOWS                     **/
+/** ARGUMENTS  : DELAY IN MS                                                 **/
+/** RETURN     : RETURNS THE NUMBER OF OVS                                   **/
+/******************************************************************************/
+uint32_t TMR1_getovs(uint32_t u32_a_delay)
+{
+	uint32_t u32_a_ovs = 0 ;
+	
+	/********************************************************************/
+	/**      THIS CALCULATIONS ARE DONE ON 1 MHZ F_CPU                 **/
+	/********************************************************************/
+	#if TMR1_PRESCALLER_VALUE == PRESCALER_1024  /** CHECK THE PRESCALLER FROM CONFIG FILE **/
+	
+	u32_a_ovs = (u32_a_delay / 67108864);   /** CALCULATING NUMBER OF OVERFLOWS ( DESIRED DELAY / TIME OF OVER FLOW ) **/
+	
+
+	#elif TMR1_PRESCALLER_VALUE == PRESCALER_256
+
+	u32_a_ovs = (u32_a_delay / 16777.216);   /** CALCULATING NUMBER OF OVERFLOWS ( DESIRED DELAY / TIME OF OVER FLOW ) **/
+	
+	
+	#elif TMR1_PRESCALLER_VALUE == PRESCALER_64
+	
+	u32_a_ovs = (u32_a_delay / 4194.304);   /** CALCULATING NUMBER OF OVERFLOWS ( DESIRED DELAY / TIME OF OVER FLOW ) **/
+	
+
+	#elif TMR1_PRESCALLER_VALUE == NO_PRESCALER
+	
+	u32_a_ovs = (u32_a_delay / 8.192);   /** CALCULATING NUMBER OF OVERFLOWS ( DESIRED DELAY / TIME OF OVER FLOW ) **/
+	
+	
+	#endif
+	
+	return u32_a_ovs ;
+}

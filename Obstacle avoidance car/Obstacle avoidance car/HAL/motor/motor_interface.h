@@ -41,7 +41,6 @@ MOTOR_init_status MOTOR_rotateclkdir(uint8_t u8_a_motorid);
 /*****************************************************************/
 MOTOR_init_status MOTOR_rotateanticlkdir(uint8_t u8_a_motorid);
 
-
 /*****************************************************************/
 /** FUNCTION TO STOP THE MOTOR                                  **/
 /** ARGUMENTS  : MOTOR ID                                       **/
@@ -62,5 +61,26 @@ MOTOR_init_status MOTOR_turnon(uint8_t u8_a_motorid);
 /** RETURN     :  MOTOR INIT ERROR STATUS                       **/
 /*****************************************************************/
 MOTOR_init_status MOTOR_applyspeed(uint8_t u8_a_motorid  , uint8_t u8_a_speed);
+
+/*****************************************************************/
+/** FUNCTION TO ROTATE MOTOR 90 DEGREE TO RIGHT                 **/
+/** ARGUMENTS  : MOTOR ID                                       **/
+/** RETURN     :  MOTOR INIT ERROR STATUS                       **/
+/*****************************************************************/
+MOTOR_init_status MOTOR_rotate90right(uint8_t u8_a_motorid);
+
+/*****************************************************************/
+/** FUNCTION TO ROTATE MOTOR 90 DEGREE TO LEFT                  **/
+/** ARGUMENTS  : MOTOR ID                                       **/
+/** RETURN     :  MOTOR INIT ERROR STATUS                       **/
+/*****************************************************************/
+MOTOR_init_status MOTOR_rotate90left(uint8_t u8_a_motorid);
+
+/*****************************************************************/
+/** FUNCTION TO STOP THE MOTOR                                  **/
+/** ARGUMENTS  : MOTOR ID                                       **/
+/** RETURN     :  MOTOR INIT ERROR STATUS                       **/
+/*****************************************************************/
+MOTOR_init_status MOTOR_stop(uint8_t u8_a_motorid);
 
 #endif

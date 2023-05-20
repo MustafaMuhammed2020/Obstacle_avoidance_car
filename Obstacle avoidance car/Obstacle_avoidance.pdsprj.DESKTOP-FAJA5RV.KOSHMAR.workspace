@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <WORKSPACE>
  <FRAME activewindow="0">
-  <PLACEMENT>2c0000000200000003000000ffffffffffffffffffffffffffffffff74ffffff50fbffffd403000020feffff</PLACEMENT>
+  <PLACEMENT>2c00000002000000010000000083ffff0083ffffffffffffffffffff3b00000073fcffff9b04000043ffffff</PLACEMENT>
   <WINDOW type="default" module="ISIS"/>
  </FRAME>
  <MODULE name="VSMDEBUG">
@@ -32,13 +32,13 @@
      <ITEM name="nItems">0</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="695" x="-140" flags="00008001" y="-1096" h="453" pid="0" iid="25">
+   <POPUP w="695" x="-140" flags="00000000" y="-528" h="453" pid="0" iid="25">
     <PROPERTIES/>
    </POPUP>
-   <POPUP w="226" x="-42" flags="00000008" y="-1011" h="215" pid="3" iid="1">
+   <POPUP w="30" x="-42" flags="00000008" y="-1011" h="16" pid="3" iid="1">
     <PROPERTIES/>
    </POPUP>
-   <POPUP w="8" x="-22" flags="0000000a" y="-991" h="1" pid="10" iid="1">
+   <POPUP w="1" x="-22" flags="0000000a" y="-991" h="3" pid="10" iid="1">
     <PROPERTIES>
      <ITEM name="DataType">2</ITEM>
      <ITEM name="DispChars">Yes</ITEM>
@@ -143,6 +143,9 @@
      <ITEM name="ShowToolTips">Yes</ITEM>
      <ITEM name="TopLineAddress">00000000</ITEM>
     </PROPERTIES>
+   </POPUP>
+   <POPUP w="290" x="-102" flags="00000000" y="-1071" h="189" pid="0" iid="14">
+    <PROPERTIES/>
    </POPUP>
   </PWI>
  </MODULE>

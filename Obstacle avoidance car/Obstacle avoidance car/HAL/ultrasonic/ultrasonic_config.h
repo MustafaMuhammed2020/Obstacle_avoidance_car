@@ -9,7 +9,7 @@
 #define ULTRASONIC_CONFIG_H_
 
 /** MACRO FOR THE TRIGGER PIN **/
-#define US_TRIG_PORT          DIO_PORTD
+#define US_TRIG_PORT          DIO_PORTA
 #define US_TRIG_PIN           DIO_PIN0
 
 

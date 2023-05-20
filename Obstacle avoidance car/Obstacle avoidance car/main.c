@@ -1,6 +1,6 @@
 /***************************************************************/
 /** Author  : Mustafa Mohammed Abdou                          **/
-/** Date    : 16 May , 2021                                   **/
+/** Date    : 18 May , 2023                                   **/
 /** Version : V01                                             **/
 /***************************************************************/
 
@@ -10,12 +10,13 @@
 
 int main(void)
 {
-	APP_init();
+	APP_init(); /** INITIALIZE APPLICATION MODULES **/
 	
-    /* Replace with your application code */
+	APP_setentry(); /** SET THE ENTRY DATA **/
+	
     while (1) 
     {
-		APP_start();
+		APP_start(); /** SUPER LOOP **/	
     }
 
 	return 0 ;

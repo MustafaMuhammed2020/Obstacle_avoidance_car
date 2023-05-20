@@ -217,7 +217,7 @@ MOTOR_init_status MOTOR_turnon(uint8_t u8_a_motorid)
 	
 	switch(u8_a_motorid)
 	{
-		case MOTOR1_ID : /** SET PINS OF MOTOR 1 **/
+		case MOTOR1_ID : 
 		DIO_setpinvalue(MOTOR1_PORT , MOTOR1_ENABLE_PIN , DIO_PIN_HIGH); /** SET ENABLE PIN TO HIGH **/
 		break;
 		
@@ -306,4 +306,58 @@ MOTOR_init_status MOTOR_applyspeed(uint8_t u8_a_motorid  , uint8_t u8_a_speed)
 		}
 		
 	}
+}
+
+/*****************************************************************/
+/** FUNCTION TO ROTATE MOTOR 90 DEGREE TO RIGHT                 **/
+/** ARGUMENTS  : MOTOR ID                                       **/
+/** RETURN     :  MOTOR INIT ERROR STATUS                       **/
+/*****************************************************************/
+MOTOR_init_status MOTOR_rotate90right(uint8_t u8_a_motorid)
+{
+	/** STOP THE RIGHT SIDE **/
+	/** **/
+}
+
+/*****************************************************************/
+/** FUNCTION TO ROTATE MOTOR 90 DEGREE TO LEFT                  **/
+/** ARGUMENTS  : MOTOR ID                                       **/
+/** RETURN     :  MOTOR INIT ERROR STATUS                       **/
+/*****************************************************************/
+MOTOR_init_status MOTOR_rotate90left(uint8_t u8_a_motorid);
+
+MOTOR_init_status MOTOR_stop(uint8_t u8_a_motorid)
+{
+	MOTOR_init_status en_a_motoroffstatus = VALID_MOTOR_INIT ; /** VARIABLE TO HOLD THE RETURN STATUS **/
+	
+	switch(u8_a_motorid)
+	{
+		case MOTOR1_ID :
+		DIO_setpinvalue(MOTOR1_PORT , MOTOR1_PIN1 , DIO_PIN_LOW); /** SET MOTOR PINS TO LOW PIN TO HIGH **/
+		DIO_setpinvalue(MOTOR1_PORT , MOTOR1_PIN2 , DIO_PIN_LOW); 
+		break;
+		
+		case MOTOR2_ID:  /** SET PINS OF MOTOR 2 **/
+		DIO_setpinvalue(MOTOR2_PORT , MOTOR2_PIN1 , DIO_PIN_LOW); /** SET MOTOR PINS TO LOW PIN TO HIGH **/
+		DIO_setpinvalue(MOTOR2_PORT , MOTOR2_PIN2 , DIO_PIN_LOW);
+		break;
+		
+		case MOTOR3_ID:  /** SET PINS OF MOTOR 2 **/
+		DIO_setpinvalue(MOTOR3_PORT , MOTOR3_PIN1 , DIO_PIN_LOW); /** SET MOTOR PINS TO LOW PIN TO HIGH **/
+		DIO_setpinvalue(MOTOR3_PORT , MOTOR3_PIN2 , DIO_PIN_LOW);
+		break;
+		
+		case MOTOR4_ID:  /** SET PINS OF MOTOR 2 **/
+		DIO_setpinvalue(MOTOR4_PORT , MOTOR4_PIN1 , DIO_PIN_LOW); /** SET MOTOR PINS TO LOW PIN TO HIGH **/
+		DIO_setpinvalue(MOTOR4_PORT , MOTOR4_PIN2 , DIO_PIN_LOW);
+		break;
+		
+		default:
+		/** RETURN ERROR **/
+		en_a_motoroffstatus = NOTVALID_MOTOR_INIT ; /** AN ERROR IN INITIALIZE MOTOR **/
+		break;
+		
+	}
+	
+	return en_a_motoroffstatus ; /** RETURN THE FINAL STATUS **/
 }
