@@ -14,8 +14,11 @@ int main(void)
 	
 	APP_setentry(); /** SET THE ENTRY DATA **/
 	
+	
+	
     while (1) 
     {
+		
 		APP_start(); /** SUPER LOOP **/	
     }
 
