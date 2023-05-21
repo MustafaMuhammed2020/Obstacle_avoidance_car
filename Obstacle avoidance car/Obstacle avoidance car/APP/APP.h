@@ -12,6 +12,15 @@
 #define RIGHT_ROTATION     2
 #define LEFT_ROTATION      1
 
+/** MACROS TO REPLACE MAGIC NUMBERS **/
+#define SAFE_DISTANCE      70 
+#define DISTANCE_30        30
+#define DISTANCE_20        20
+#define DISTANCE_DIV       464
+#define SPEED_50_ON_TIME  50400
+#define SPEED_30_ON_TIME  20560
+#define START_BTN        '1'
+
 
 /** FUNCTION TO INITIALIZE APPLICATION MODULES **/
 void APP_init(void);

@@ -4,8 +4,6 @@
 /** Version : V01                                             **/
 /***************************************************************/
 
-
-
 #include "APP/APP.h"
 
 int main(void)
@@ -14,11 +12,8 @@ int main(void)
 	
 	APP_setentry(); /** SET THE ENTRY DATA **/
 	
-	
-	
     while (1) 
-    {
-		
+    {	
 		APP_start(); /** SUPER LOOP **/	
     }
 
