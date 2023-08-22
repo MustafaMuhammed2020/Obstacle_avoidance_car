@@ -19,7 +19,7 @@
 #include "TMR2_config.h"
 
 
-void (* TMR2_OVF_callback ) (void ) ;  /** GLOBAL POINTER TO SET THE ISR OF TMR2 OVERFLOW **/
+//void (* TMR2_OVF_callback ) (void ) ;  /** GLOBAL POINTER TO SET THE ISR OF TMR2 OVERFLOW **/
 
 /****************************************************************/
 /** FUNCTION TO INITIALIZE TMR2 WITH SOME CONFIGURATIONS        */
@@ -261,14 +261,14 @@ uint32_t TMR2_getovs(uint16t u16_a_delay)
 /** ARGUMENTS  : POINTER TO FUNCTION                                         **/
 /** RETURN     : VOID                                                        **/
 /******************************************************************************/
-void TMR2_setcallback(void ( * TMR2_OVF_ISR ) (void) )
-{
-	TMR2_OVF_callback = TMR2_OVF_ISR ;
-}
-
-ISR(TIMER2_OVF_vect)
-{
-	TMR2_OVF_callback ;
-}
+// void TMR2_setcallback(void ( * TMR2_OVF_ISR ) (void) )
+// {
+// 	TMR2_OVF_callback = TMR2_OVF_ISR ;
+// }
+// 
+// ISR(TIMER2_OVF_vect)
+// {
+// 	TMR2_OVF_callback ;
+// }
 
 

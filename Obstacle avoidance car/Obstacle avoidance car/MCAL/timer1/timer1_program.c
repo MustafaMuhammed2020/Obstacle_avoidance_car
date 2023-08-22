@@ -20,7 +20,7 @@
 
 uint32_t u32_gs_NO_OF_OVS = 0 ; /** GLOBAL STATIC VARIABLE HOLDS THE NUBER OF OVERFLOWS **/
  
-void (* TMR1_OVF_callback ) (void ) ;  /** GLOBAL POINTER TO SET THE ISR OF TMR1 OVERFLOW **/
+//void (* TMR1_OVF_callback ) (void ) ;  /** GLOBAL POINTER TO SET THE ISR OF TMR1 OVERFLOW **/
 
 
 /******************************************************************************/
@@ -568,12 +568,12 @@ uint32_t TMR1_getovs(uint32_t u32_a_delay)
 /** ARGUMENTS  : POINTER TO FUNCTION                                         **/
 /** RETURN     : VOID                                                        **/
 /******************************************************************************/
-void TMR1_setcallback(void ( * TMR1_OVF_ISR ) (void) )
-{
-	TMR1_OVF_callback = TMR1_OVF_ISR ; 
-}
-
-ISR(TIMER1_OVF_vect)
-{
-	TMR1_OVF_callback ;
-}
+// void TMR1_setcallback(void ( * TMR1_OVF_ISR ) (void) )
+// {
+// 	TMR1_OVF_callback = TMR1_OVF_ISR ; 
+// }
+// 
+// ISR(TIMER1_OVF_vect)
+// {
+// 	TMR1_OVF_callback ;
+// }

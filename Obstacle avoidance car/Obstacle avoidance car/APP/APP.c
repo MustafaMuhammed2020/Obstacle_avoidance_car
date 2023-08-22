@@ -5,6 +5,7 @@
 /***************************************************************/
 
 /** INCLUDE LIBRARIES **/
+#include "avr/interrupt.h"
 #include "../SERVICE/common_macros.h"
 #include "../SERVICE/standard_types.h"
 
@@ -51,12 +52,6 @@ void APP_init()
 	Button_init(); /** INITIALIZATION OF BUTTON **/
 	
 	LCD_init(); /** INITIALIZE LCD **/
-	
-	INT0_setcallback(INT0_routine) ; /** SET THE CALLBACK OF INT0 **/
-	
-	TMR1_setcallback(TMR1_routine) ; /** SET THE CALLBACK OF TMR1 **/
-	
-	TMR2_setcallback(TMR2_routine) ; /** SET THE CALLBACK OF TMR2 **/
 	
 	TMR0_delayms(MS_DELAY_50); /** DELAY FOR LCD INITIALIZATION **/
 
@@ -316,7 +311,10 @@ void APP_start()
 	}
 }
 
-void INT0_routine(void)
+
+
+/** EXTI0 **/
+ISR(INT0_vect)
 {
 	u8_echoedge++ ; /** INCREASE THE ECHO BY 1 **/
 	
@@ -340,54 +338,16 @@ void INT0_routine(void)
 }
 
 
-/** FUNCTION TO BE EXECUTED WHEN TMR1 OVERFLOW FIRED **/
-void TMR1_routine(void)
-{
-	/** DO NOTHING **/
-}
-
-/** FUNCTION TO BE EXECUTED WHEN TMR2 OVERFLOW FIRED **/
-void TMR2_routine(void)
-{
-	u32_g_tick++ ; /** INCREASE TICKS **/
-}
-
-
-/** EXTI0 
-ISR(INT0_vect)
-{
-	u8_echoedge++ ; /** INCREASE THE ECHO BY 1 
-	
-	if(u8_echoedge == FIRST_EDGE ) /** FIRST CHANGE (RISING EDGE) 
-	{
-		ICU_start(); /** START ICU / COUNTING 
-	}
-	
-	else if(u8_echoedge == SECOND_EDGE) /** SECOND CHANGE (FALLING EDGE) 
-	{
-		ICU_stop(); /** STOP ICU / COUNTING 
-		
-		u16_g_time = ICU_getvalue(); /** GET PULSE LENGTH 
-		
-		ICU_setcounterval(INITIATE_COUNTER_VAL); /** START COUNTING FROM ZERO 
-				
-		u8_echoedge = 0 ;     /** REINITIALIZE ECHO EDGE TO 0 TO REPEAT IN ANY CHANGE AGAIN 
-		
-		u8_g_distance = (u16_g_time / US_DIVIDER) ; /** CALCULATE THE DISTANCE 
-	}
-}
-**/
-
-/** TIMER 1 OVERFLOW 
+/** TIMER 1 OVERFLOW **/ 
 ISR(TIMER1_OVF_vect)
 {
-	/** DO NOTHING 
-}**/
+	/** DO NOTHING **/ 
+}
 
-/** TIMER 0 OVERFLOW 
+/** TIMER 0 OVERFLOW  **/
 ISR(TIMER2_OVF_vect)
 {
-	u32_g_tick++ ; /** INCREASE TICKS  
-}**/
+	u32_g_tick++ ; /** INCREASE TICKS **/  
+}
 
 

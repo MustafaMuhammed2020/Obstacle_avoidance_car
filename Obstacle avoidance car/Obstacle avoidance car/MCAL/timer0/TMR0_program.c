@@ -21,7 +21,7 @@
 uint32_t u32_gs_tmr0nuofovs = 0 ;   /** VARIABLE TO HOLD THE NUMBER OF OVER FLOWS **/
 
 
-void (* TMR0_OVF_callback ) (void ) ;  /** global pointr to function to set TMR0 call back **/
+//void (* TMR0_OVF_callback ) (void ) ;  /** global pointr to function to set TMR0 call back **/
 
 /****************************************************************/
 /** FUNCTION TO INITIALIZE TMR0 WITH SOME CONFIGURATIONS        */
@@ -398,13 +398,13 @@ uint32_t TMR0_getovs(uint16t u16_a_delay)
 /** ARGUMENTS  : POINTER TO FUNCTION                                         **/
 /** RETURN     : VOID                                                        **/
 /******************************************************************************/
-void TMR0_setcallback(void ( * TMR0_OVF_ISR ) (void) )
-{
-	TMR0_OVF_callback = TMR0_OVF_ISR ; /** TMR0 POINTER POINTS TO THE PASSED FUNCTION **/
-}
-
-
-ISR(TIMER0_OVF_vect)
-{
-	TMR0_OVF_callback ;
-}
+// void TMR0_setcallback(void ( * TMR0_OVF_ISR ) (void) )
+// {
+// 	TMR0_OVF_callback = TMR0_OVF_ISR ; /** TMR0 POINTER POINTS TO THE PASSED FUNCTION **/
+// }
+// 
+// 
+// ISR(TIMER0_OVF_vect)
+// {
+// 	TMR0_OVF_callback ;
+// }
