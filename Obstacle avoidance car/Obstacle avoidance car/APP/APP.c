@@ -220,24 +220,6 @@ void APP_start()
 		}
 		TMR2_stop(); /** STOP TIMER 2 **/
 			
-// 		while((u16_g_time/DISTANCE_DIV) >= DISTANCE_30) /** WHEN DISTANCE BECOME MORE THAN 30 CM **/
-// 		{
-// 			/** CONTINUE WITH 30% **/
-// 			MOTOR_turnon(MOTOR1_ID);
-// 			MOTOR_turnon(MOTOR2_ID);
-// 			MOTOR_turnon(MOTOR3_ID);
-// 			MOTOR_turnon(MOTOR4_ID);
-// 			LCD_goto(LCD_POS_0 , LCD_POS_1) ;
-// 			TMR0_delaymicros(SPEED_30_ON_TIME);
-// 			
-// 			MOTOR_turnoff(MOTOR1_ID);
-// 			MOTOR_turnoff(MOTOR2_ID);
-// 			MOTOR_turnoff(MOTOR3_ID);
-// 			MOTOR_turnoff(MOTOR4_ID);
-// 			LCD_writestr("Distance :");
-// 			LCD_writeint(u8_g_distance);
-// 			US_sendtrigger(); /** SEND TRIGGER **/
-// 		}
 		US_sendtrigger(); /** SEND TRIGGER **/
 	}
 
@@ -249,80 +231,30 @@ void APP_start()
 		MOTOR_rotateanticlkdir(MOTOR4_ID);
 		
 		while ((u16_g_time/DISTANCE_DIV) <= DISTANCE_20)
-		{
-			/** GO BACKWARDS WITH 30% SPEED **/
-			MOTOR_turnon(MOTOR1_ID);
-			MOTOR_turnon(MOTOR2_ID);
-			MOTOR_turnon(MOTOR3_ID);
-			MOTOR_turnon(MOTOR4_ID);
-			LCD_goto(LCD_POS_0 , LCD_POS_1) ;
-			TMR0_delaymicros(SPEED_30_ON_TIME);
+		   {
+			  /** GO BACKWARDS WITH 30% SPEED **/
+			  MOTOR_turnon(MOTOR1_ID);
+			  MOTOR_turnon(MOTOR2_ID);
+		      MOTOR_turnon(MOTOR3_ID);
+			  MOTOR_turnon(MOTOR4_ID);
+			  LCD_goto(LCD_POS_0 , LCD_POS_1) ;
+			  TMR0_delaymicros(SPEED_30_ON_TIME);
 			
-			MOTOR_turnoff(MOTOR1_ID);
-			MOTOR_turnoff(MOTOR2_ID);
-			MOTOR_turnoff(MOTOR3_ID);
-			MOTOR_turnoff(MOTOR4_ID);
-			LCD_writestr("Distance :");
-			LCD_writeint(u8_g_distance);
-			US_sendtrigger(); /** SEND TRIGGER **/
+			  MOTOR_turnoff(MOTOR1_ID);
+			  MOTOR_turnoff(MOTOR2_ID);
+			  MOTOR_turnoff(MOTOR3_ID);
+			  MOTOR_turnoff(MOTOR4_ID);
+			  LCD_writestr("Distance :");
+			  LCD_writeint(u8_g_distance);
+			  US_sendtrigger(); /** SEND TRIGGER **/
+		   }
+		
+				MOTOR_rotateclkdir(MOTOR1_ID); /** MOVE BACKWORDS  **/
+				MOTOR_rotateclkdir(MOTOR2_ID);
+				MOTOR_rotateclkdir(MOTOR3_ID);
+				MOTOR_rotateclkdir(MOTOR4_ID);
+		
 		}
-		
-		MOTOR_rotateclkdir(MOTOR1_ID); /** MOVE BACKWORDS  **/
-		MOTOR_rotateclkdir(MOTOR2_ID);
-		MOTOR_rotateclkdir(MOTOR3_ID);
-		MOTOR_rotateclkdir(MOTOR4_ID);
-		
-// 		u32_g_tick = 0 ;
-// 		u32_g_delay =  TMR2_getovs(ROTATION_OVF) ; /** GET THE NUMBER OF OVERFLOWS NEEDED FOR 5 SECONDS **/
-// 		//TMR2_start() ; /** START TIMER 2 **/
-// 		
-// 		MOTOR_rotateclkdir(MOTOR1_ID); /** MOVE BACKWORDS  **/
-// 		MOTOR_rotateclkdir(MOTOR2_ID);
-// 		MOTOR_rotateclkdir(MOTOR3_ID);
-// 		MOTOR_rotateclkdir(MOTOR4_ID);
-		
-// 		while ((u16_g_time/DISTANCE_DIV) > DISTANCE_20)
-// 		{
-// 			/** STOP THEN ROTATE **/
-// 			MOTOR_turnoff(MOTOR1_ID);
-// 			MOTOR_turnoff(MOTOR2_ID);
-// 			MOTOR_turnoff(MOTOR3_ID);
-// 			MOTOR_turnoff(MOTOR4_ID);
-// 			
-// 			LCD_goto(LCD_POS_0 , LCD_POS_1) ;
-// 			LCD_writestr("Distance :");
-// 			LCD_writeint(u8_g_distance);
-// 			
-// 			TMR2_start() ; /** START TIMER 2 **/
-// 			while (u32_g_tick < u32_g_delay)
-// 			{
-// 				/** ROTATION **/
-// 				MOTOR_turnon(MOTOR3_ID);
-// 				MOTOR_turnon(MOTOR4_ID);
-// 			}
-// 			US_sendtrigger(); /** SEND TRIGGER **/
-// 			TMR2_stop() ; /** START TIMER 2 **/
-			
-// 			while((u16_g_time/DISTANCE_DIV) >= DISTANCE_30)
-// 			{
-// 				MOTOR_turnon(MOTOR1_ID);
-// 				MOTOR_turnon(MOTOR2_ID);
-// 				MOTOR_turnon(MOTOR3_ID);
-// 				MOTOR_turnon(MOTOR4_ID);
-// 				LCD_goto(LCD_POS_0 , LCD_POS_1) ;
-// 				TMR0_delaymicros(SPEED_30_ON_TIME);
-// 				
-// 				MOTOR_turnoff(MOTOR1_ID);
-// 				MOTOR_turnoff(MOTOR2_ID);
-// 				MOTOR_turnoff(MOTOR3_ID);
-// 				MOTOR_turnoff(MOTOR4_ID);
-// 				LCD_writestr("Distance :");
-// 				LCD_writeint(u8_g_distance);
-// 				US_sendtrigger(); /** SEND TRIGGER **/
-// 			}
-		}
-		
-	//}
 }
 
 

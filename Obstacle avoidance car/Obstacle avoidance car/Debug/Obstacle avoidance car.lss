@@ -19,7 +19,7 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   7 .debug_abbrev 0000101e  00000000  00000000  00004eeb  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00001f76  00000000  00000000  00005f09  2**0
+  8 .debug_line   00001f75  00000000  00000000  00005f09  2**0
                   CONTENTS, READONLY, DEBUGGING
   9 .debug_frame  000005e0  00000000  00000000  00007e80  2**2
                   CONTENTS, READONLY, DEBUGGING
@@ -678,11 +678,7 @@ void APP_start()
 		}
 		TMR2_stop(); /** STOP TIMER 2 **/
      480:	0e 94 76 09 	call	0x12ec	; 0x12ec <TMR2_stop>
-// 			MOTOR_turnoff(MOTOR4_ID);
-// 			LCD_writestr("Distance :");
-// 			LCD_writeint(u8_g_distance);
-// 			US_sendtrigger(); /** SEND TRIGGER **/
-// 		}
+			
 		US_sendtrigger(); /** SEND TRIGGER **/
      484:	0e 94 e3 06 	call	0xdc6	; 0xdc6 <US_sendtrigger>
 	}
@@ -720,54 +716,54 @@ void APP_start()
 		
 		while ((u16_g_time/DISTANCE_DIV) <= DISTANCE_20)
      4b6:	2f c0       	rjmp	.+94     	; 0x516 <__EEPROM_REGION_LENGTH__+0x116>
-		{
-			/** GO BACKWARDS WITH 30% SPEED **/
-			MOTOR_turnon(MOTOR1_ID);
+		   {
+			  /** GO BACKWARDS WITH 30% SPEED **/
+			  MOTOR_turnon(MOTOR1_ID);
      4b8:	80 e0       	ldi	r24, 0x00	; 0
      4ba:	0e 94 b7 06 	call	0xd6e	; 0xd6e <MOTOR_turnon>
-			MOTOR_turnon(MOTOR2_ID);
+			  MOTOR_turnon(MOTOR2_ID);
      4be:	81 e0       	ldi	r24, 0x01	; 1
      4c0:	0e 94 b7 06 	call	0xd6e	; 0xd6e <MOTOR_turnon>
-			MOTOR_turnon(MOTOR3_ID);
+		      MOTOR_turnon(MOTOR3_ID);
      4c4:	82 e0       	ldi	r24, 0x02	; 2
      4c6:	0e 94 b7 06 	call	0xd6e	; 0xd6e <MOTOR_turnon>
-			MOTOR_turnon(MOTOR4_ID);
+			  MOTOR_turnon(MOTOR4_ID);
      4ca:	83 e0       	ldi	r24, 0x03	; 3
      4cc:	0e 94 b7 06 	call	0xd6e	; 0xd6e <MOTOR_turnon>
-			LCD_goto(LCD_POS_0 , LCD_POS_1) ;
+			  LCD_goto(LCD_POS_0 , LCD_POS_1) ;
      4d0:	61 e0       	ldi	r22, 0x01	; 1
      4d2:	80 e0       	ldi	r24, 0x00	; 0
      4d4:	0e 94 2c 05 	call	0xa58	; 0xa58 <LCD_goto>
-			TMR0_delaymicros(SPEED_30_ON_TIME);
+			  TMR0_delaymicros(SPEED_30_ON_TIME);
      4d8:	60 e5       	ldi	r22, 0x50	; 80
      4da:	70 e5       	ldi	r23, 0x50	; 80
      4dc:	80 e0       	ldi	r24, 0x00	; 0
      4de:	90 e0       	ldi	r25, 0x00	; 0
      4e0:	0e 94 e4 08 	call	0x11c8	; 0x11c8 <TMR0_delaymicros>
 			
-			MOTOR_turnoff(MOTOR1_ID);
+			  MOTOR_turnoff(MOTOR1_ID);
      4e4:	80 e0       	ldi	r24, 0x00	; 0
      4e6:	0e 94 91 06 	call	0xd22	; 0xd22 <MOTOR_turnoff>
-			MOTOR_turnoff(MOTOR2_ID);
+			  MOTOR_turnoff(MOTOR2_ID);
      4ea:	81 e0       	ldi	r24, 0x01	; 1
      4ec:	0e 94 91 06 	call	0xd22	; 0xd22 <MOTOR_turnoff>
-			MOTOR_turnoff(MOTOR3_ID);
+			  MOTOR_turnoff(MOTOR3_ID);
      4f0:	82 e0       	ldi	r24, 0x02	; 2
      4f2:	0e 94 91 06 	call	0xd22	; 0xd22 <MOTOR_turnoff>
-			MOTOR_turnoff(MOTOR4_ID);
+			  MOTOR_turnoff(MOTOR4_ID);
      4f6:	83 e0       	ldi	r24, 0x03	; 3
      4f8:	0e 94 91 06 	call	0xd22	; 0xd22 <MOTOR_turnoff>
-			LCD_writestr("Distance :");
+			  LCD_writestr("Distance :");
      4fc:	82 e9       	ldi	r24, 0x92	; 146
      4fe:	90 e0       	ldi	r25, 0x00	; 0
      500:	0e 94 19 05 	call	0xa32	; 0xa32 <LCD_writestr>
-			LCD_writeint(u8_g_distance);
+			  LCD_writeint(u8_g_distance);
      504:	60 91 aa 00 	lds	r22, 0x00AA	; 0x8000aa <u8_g_distance>
      508:	70 e0       	ldi	r23, 0x00	; 0
      50a:	80 e0       	ldi	r24, 0x00	; 0
      50c:	90 e0       	ldi	r25, 0x00	; 0
      50e:	0e 94 44 05 	call	0xa88	; 0xa88 <LCD_writeint>
-			US_sendtrigger(); /** SEND TRIGGER **/
+			  US_sendtrigger(); /** SEND TRIGGER **/
      512:	0e 94 e3 06 	call	0xdc6	; 0xdc6 <US_sendtrigger>
 		MOTOR_rotateanticlkdir(MOTOR1_ID); /** MOVE BACKWORDS  **/
 		MOTOR_rotateanticlkdir(MOTOR2_ID);
@@ -780,25 +776,25 @@ void APP_start()
      51e:	80 31       	cpi	r24, 0x10	; 16
      520:	96 42       	sbci	r25, 0x26	; 38
      522:	50 f2       	brcs	.-108    	; 0x4b8 <__EEPROM_REGION_LENGTH__+0xb8>
-			LCD_writestr("Distance :");
-			LCD_writeint(u8_g_distance);
-			US_sendtrigger(); /** SEND TRIGGER **/
-		}
+			  LCD_writestr("Distance :");
+			  LCD_writeint(u8_g_distance);
+			  US_sendtrigger(); /** SEND TRIGGER **/
+		   }
 		
-		MOTOR_rotateclkdir(MOTOR1_ID); /** MOVE BACKWORDS  **/
+				MOTOR_rotateclkdir(MOTOR1_ID); /** MOVE BACKWORDS  **/
      524:	80 e0       	ldi	r24, 0x00	; 0
      526:	0e 94 1d 06 	call	0xc3a	; 0xc3a <MOTOR_rotateclkdir>
-		MOTOR_rotateclkdir(MOTOR2_ID);
+				MOTOR_rotateclkdir(MOTOR2_ID);
      52a:	81 e0       	ldi	r24, 0x01	; 1
      52c:	0e 94 1d 06 	call	0xc3a	; 0xc3a <MOTOR_rotateclkdir>
-		MOTOR_rotateclkdir(MOTOR3_ID);
+				MOTOR_rotateclkdir(MOTOR3_ID);
      530:	82 e0       	ldi	r24, 0x02	; 2
      532:	0e 94 1d 06 	call	0xc3a	; 0xc3a <MOTOR_rotateclkdir>
-		MOTOR_rotateclkdir(MOTOR4_ID);
+				MOTOR_rotateclkdir(MOTOR4_ID);
      536:	83 e0       	ldi	r24, 0x03	; 3
      538:	0e 94 1d 06 	call	0xc3a	; 0xc3a <MOTOR_rotateclkdir>
-// 			US_sendtrigger(); /** SEND TRIGGER **/
-// 		}
+		TMR2_stop(); /** STOP TIMER 2 **/
+			
 		US_sendtrigger(); /** SEND TRIGGER **/
 	}
 
@@ -809,11 +805,11 @@ void APP_start()
      546:	94 42       	sbci	r25, 0x24	; 36
      548:	08 f4       	brcc	.+2      	; 0x54c <__EEPROM_REGION_LENGTH__+0x14c>
      54a:	a9 cf       	rjmp	.-174    	; 0x49e <__EEPROM_REGION_LENGTH__+0x9e>
-// 				US_sendtrigger(); /** SEND TRIGGER **/
-// 			}
-		}
+				MOTOR_rotateclkdir(MOTOR2_ID);
+				MOTOR_rotateclkdir(MOTOR3_ID);
+				MOTOR_rotateclkdir(MOTOR4_ID);
 		
-	//}
+		}
 }
      54c:	08 95       	ret
 

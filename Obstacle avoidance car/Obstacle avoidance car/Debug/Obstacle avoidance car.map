@@ -871,22 +871,22 @@ END GROUP
  .debug_abbrev  0x00000e57      0x113 MCAL/timer1/timer1_program.o
  .debug_abbrev  0x00000f6a       0xb4 MCAL/timer2/TMR2_program.o
 
-.debug_line     0x00000000     0x1f76
+.debug_line     0x00000000     0x1f75
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x116 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32a/avr5/crtatmega32a.o
- .debug_line    0x00000116      0x600 APP/APP.o
- .debug_line    0x00000716      0x108 HAL/button/button_program.o
- .debug_line    0x0000081e      0x160 HAL/icu/ICU_program.o
- .debug_line    0x0000097e      0x227 HAL/keypad/KEYPAD_program.o
- .debug_line    0x00000ba5      0x36a HAL/lcd/LCD_program.o
- .debug_line    0x00000f0f      0x485 HAL/motor/motor_program.o
- .debug_line    0x00001394      0x108 HAL/ultrasonic/ultrasonic_program.o
- .debug_line    0x0000149c       0x61 main.o
- .debug_line    0x000014fd      0x3b9 MCAL/dio/DIO_program.o
- .debug_line    0x000018b6      0x124 MCAL/int0/INT_program.o
- .debug_line    0x000019da      0x23a MCAL/timer0/TMR0_program.o
- .debug_line    0x00001c14      0x1d0 MCAL/timer1/timer1_program.o
- .debug_line    0x00001de4      0x192 MCAL/timer2/TMR2_program.o
+ .debug_line    0x00000116      0x5ff APP/APP.o
+ .debug_line    0x00000715      0x108 HAL/button/button_program.o
+ .debug_line    0x0000081d      0x160 HAL/icu/ICU_program.o
+ .debug_line    0x0000097d      0x227 HAL/keypad/KEYPAD_program.o
+ .debug_line    0x00000ba4      0x36a HAL/lcd/LCD_program.o
+ .debug_line    0x00000f0e      0x485 HAL/motor/motor_program.o
+ .debug_line    0x00001393      0x108 HAL/ultrasonic/ultrasonic_program.o
+ .debug_line    0x0000149b       0x61 main.o
+ .debug_line    0x000014fc      0x3b9 MCAL/dio/DIO_program.o
+ .debug_line    0x000018b5      0x124 MCAL/int0/INT_program.o
+ .debug_line    0x000019d9      0x23a MCAL/timer0/TMR0_program.o
+ .debug_line    0x00001c13      0x1d0 MCAL/timer1/timer1_program.o
+ .debug_line    0x00001de3      0x192 MCAL/timer2/TMR2_program.o
 
 .debug_frame    0x00000000      0x5e0
  *(.debug_frame)
