@@ -116,7 +116,7 @@ void APP_setentry()
 	 TMR0_delayms(MS_DELAY_20);
 	 
 	 LCD_goto(LCD_POS_0 , LCD_POS_2);
-	 LCD_writestr("Waiting");
+	 LCD_writestr("WAITING..");
 	 
 	 TMR0_delayms(MS_DELAY_2000); /** WAIT 2 SECONDS **/
 	 
@@ -153,7 +153,8 @@ void APP_start()
 				MOTOR_turnoff(MOTOR2_ID);
 				MOTOR_turnoff(MOTOR3_ID);
 				MOTOR_turnoff(MOTOR4_ID);
-				LCD_writestr("Distance :");
+				LCD_writechar('D');
+				LCD_writechar(':');
 				LCD_writeint(u8_g_distance);
 			}
 					
@@ -171,7 +172,8 @@ void APP_start()
 			MOTOR_turnoff(MOTOR2_ID);
 			MOTOR_turnoff(MOTOR3_ID);
 			MOTOR_turnoff(MOTOR4_ID);
-			LCD_writestr("Distance :");
+			LCD_writechar('D');
+			LCD_writechar(':');
 			LCD_writeint(u8_g_distance);
 			
 			US_sendtrigger(); /** SEND TRIGGER **/
@@ -191,7 +193,8 @@ void APP_start()
 		MOTOR_turnoff(MOTOR2_ID);
 		MOTOR_turnoff(MOTOR3_ID);
 		MOTOR_turnoff(MOTOR4_ID);
-		LCD_writestr("Distance :");
+		LCD_writechar('D');
+		LCD_writechar(':');
 		LCD_writeint(u8_g_distance);
 		US_sendtrigger(); /** SEND TRIGGER **/
 	}
@@ -208,7 +211,8 @@ void APP_start()
 		MOTOR_turnoff(MOTOR4_ID);
 		
 		LCD_goto(LCD_POS_0 , LCD_POS_1) ;
-		LCD_writestr("Distance :");
+		LCD_writechar('D');
+		LCD_writechar(':');
 		LCD_writeint(u8_g_distance);
 		
 		TMR2_start() ; /** START TIMER 2 **/
@@ -244,7 +248,8 @@ void APP_start()
 			  MOTOR_turnoff(MOTOR2_ID);
 			  MOTOR_turnoff(MOTOR3_ID);
 			  MOTOR_turnoff(MOTOR4_ID);
-			  LCD_writestr("Distance :");
+			  LCD_writechar('D');
+			  LCD_writechar(':');
 			  LCD_writeint(u8_g_distance);
 			  US_sendtrigger(); /** SEND TRIGGER **/
 		   }
