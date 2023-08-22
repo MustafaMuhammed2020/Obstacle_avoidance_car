@@ -31,6 +31,8 @@
 #define SECOND_EDGE        2
 #define US_DIVIDER         464
 #define INITIATE_COUNTER_VAL  0
+#define OVERFLOW_5_SEC        5000
+#define ROTATION_OVF          500
 
 
 /** FUNCTION TO INITIALIZE APPLICATION MODULES **/
