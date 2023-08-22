@@ -92,5 +92,12 @@ TMR0_delay_error TMR0_delaymicros(uint32_t u32_a_delaymicros);
 /******************************************************************************/
 uint32_t TMR0_getovs(uint16t u16_a_delay);
 
+/******************************************************************************/
+/** FUNCTION TO SET THE ISR OF TMR0 OVERFLOW                 	             **/
+/** ARGUMENTS  : POINTER TO FUNCTION                                         **/
+/** RETURN     : VOID                                                        **/
+/******************************************************************************/
+void TMR0_setcallback(void ( * TMR0_OVF_ISR ) (void) );
+
 
 #endif

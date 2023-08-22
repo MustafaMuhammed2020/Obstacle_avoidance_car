@@ -109,5 +109,12 @@ void TMR1_setcounterval(uint16t u16_a_tmrval);
 /******************************************************************************/
 uint32_t TMR1_getovs(uint32_t u32_a_delay);
 
+/******************************************************************************/
+/** FUNCTION TO SET THE ISR OF TMR1 OVERFLOW                 	             **/
+/** ARGUMENTS  : POINTER TO FUNCTION                                         **/
+/** RETURN     : VOID                                                        **/
+/******************************************************************************/
+void TMR1_setcallback(void ( * TMR1_OVF_ISR ) (void) );
+
 
 #endif /* TMR1_H_ */

@@ -76,5 +76,12 @@ TMR2_stop_error TMR2_stop(void);
 /******************************************************************************/
 uint32_t TMR2_getovs(uint16t u16_a_delay);
 
+/******************************************************************************/
+/** FUNCTION TO SET THE ISR OF TMR2 OVERFLOW                 	             **/
+/** ARGUMENTS  : POINTER TO FUNCTION                                         **/
+/** RETURN     : VOID                                                        **/
+/******************************************************************************/
+void TMR2_setcallback(void ( * TMR2_OVF_ISR ) (void) );
+
 
 #endif

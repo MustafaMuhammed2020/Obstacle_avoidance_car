@@ -5,7 +5,6 @@
 /***************************************************************/
 
 /** INCLUDE LIBRARIES **/
-#include "avr/interrupt.h"
 #include "../SERVICE/common_macros.h"
 #include "../SERVICE/standard_types.h"
 
@@ -13,9 +12,10 @@
 #include "../MCAL/dio/DIO_interface.h"
 #include "../MCAL/int0/INT_interface.h"
 #include "../MCAL/timer1/timer1_interface.h"
-#include "../HAL/lcd/LCD_interface.h"
 #include "../MCAL/timer0/TMR0_interface.h"
 #include "../MCAL/timer2/TMR2_interface.h"
+
+#include "../HAL/lcd/LCD_interface.h"
 #include "../HAL/motor/motor_interface.h"
 #include "../HAL/motor/motor_config.h"
 #include "../HAL/keypad/KEYPAD_interface.h"
@@ -27,13 +27,13 @@
 /** INCLUDE DRIVER FILES **/
 #include "APP.h"
 
-uint8_t u8_g_distance = 0 ;         /** GLOBAL COUNTER TO CALCULATE THE DISTANCE **/
-uint16t u16_g_time = 0  ;           /** GLOBAL VARIABLE FOR TIME **/
-uint8_t u8_echoedge = 0 ;           /** GLOBAL VARIABLE FOR THE ECHO PULSE STATE **/
-uint8_t u8_g_rotationbtn = 0 ;      /** GLOBAL VARIABLE TO HOLD THE ROTATION DIRECTION **/
-uint8_t u8_g_rotationcounter = 0 ;  /** GLOBAL VARIABLE FOR THE ROTATION DIRECTION SET **/
-uint32_t u32_g_delay = 0 ;          /** GLOBAL VARIABLE TO CALCULATE NUMBER OF OVERFLOWS FOR SPECIFIC DELAY **/
-uint32_t u32_g_tick = 0 ;           /** GLOBAL VARIABLE TO BE COMPARED WITH DELAY TICKS **/   
+uint8_t u8_g_distance = 0 ;          /** GLOBAL COUNTER TO CALCULATE THE DISTANCE **/
+uint16t u16_g_time = 0  ;            /** GLOBAL VARIABLE FOR TIME **/
+uint8_t u8_echoedge = 0 ;            /** GLOBAL VARIABLE FOR THE ECHO PULSE STATE **/
+uint8_t u8_g_rotationbtn = 0 ;       /** GLOBAL VARIABLE TO HOLD THE ROTATION DIRECTION **/
+uint8_t u8_g_rotationcounter = 0 ;   /** GLOBAL VARIABLE FOR THE ROTATION DIRECTION SET **/
+uint32_t u32_g_delay = 0 ;           /** GLOBAL VARIABLE TO CALCULATE NUMBER OF OVERFLOWS FOR SPECIFIC DELAY **/
+uint32_t u32_g_tick = 0 ;            /** GLOBAL VARIABLE TO BE COMPARED WITH DELAY TICKS **/   
 
 /** FUNCTION TO INITIALIZE APPLICATION MODULES **/
 void APP_init()
@@ -52,7 +52,13 @@ void APP_init()
 	
 	LCD_init(); /** INITIALIZE LCD **/
 	
-	TMR0_delayms(50); /** DELAY FOR LCD INITIALIZATION **/
+	INT0_setcallback(INT0_routine) ; /** SET THE CALLBACK OF INT0 **/
+	
+	TMR1_setcallback(TMR1_routine) ; /** SET THE CALLBACK OF TMR1 **/
+	
+	TMR2_setcallback(TMR2_routine) ; /** SET THE CALLBACK OF TMR2 **/
+	
+	TMR0_delayms(MS_DELAY_50); /** DELAY FOR LCD INITIALIZATION **/
 
 	MOTOR_init(MOTOR1_ID); /** INITIALIZE 4 MOTORS **/
 	MOTOR_init(MOTOR2_ID);
@@ -79,11 +85,11 @@ void APP_setentry()
 
  	while ( u32_g_tick < u32_g_delay) /** UNTILL TICKS OF 5 SECONDS **/
 	{
- 		LCD_goto(0 , 1);
+ 		LCD_goto(LCD_POS_0 , LCD_POS_1);
  		LCD_writestr("Set Def. Rot");
 
  		Is_pressed(BUTTON1_PORT , BUTTON1_PIN , &u8_a_btnstatus); /** CHECK IF THE BUTTON PRESSED **/
- 		TMR0_delayms(100); /** WAIT 100 MS FOR BUTTON TO SETTLE **/
+ 		TMR0_delayms(MS_DELAY_100); /** WAIT 100 MS FOR BUTTON TO SETTLE **/
  		Is_pressed(BUTTON1_PORT , BUTTON1_PIN , &u8_a_btnstatus); /** CHECK IF THE BUTTON IS STILL PRESSED **/
 
 		if (u8_a_btnstatus) /** IF THE BUTTON PRESSED **/
@@ -92,12 +98,12 @@ void APP_setentry()
 
  			if (u8_g_rotationcounter == LEFT_ROTATION) /** LEFT ROTATION **/
  			{
-				LCD_goto(1 , 1);
+				LCD_goto(LCD_POS_1 , LCD_POS_1);
 				LCD_writestr("LEFT ROTATION");
 			}
 	 		else if(u8_g_rotationcounter == RIGHT_ROTATION) /** RIGHT ROTATION **/
 	 		{
- 				LCD_goto(1 , 1);
+ 				LCD_goto(LCD_POS_1 , LCD_POS_1);
  				LCD_writestr("RIGHT ROTATION");
  			}
 			u8_a_btnstatus = 0 ; /** REINITIALIZE THE BUTTON STATE **/
@@ -112,15 +118,15 @@ void APP_setentry()
  	} while (u8_a_pressednum != START_BTN);
 
  	 LCD_sendcmd(LCD_CLEAR);
-	 TMR0_delayms(20);
+	 TMR0_delayms(MS_DELAY_20);
 	 
-	 LCD_goto(0 ,2 );
+	 LCD_goto(LCD_POS_0 , LCD_POS_2);
 	 LCD_writestr("Waiting");
 	 
-	 TMR0_delayms(2000); /** WAIT 2 SECONDS **/
+	 TMR0_delayms(MS_DELAY_2000); /** WAIT 2 SECONDS **/
 	 
 	 LCD_sendcmd(LCD_CLEAR);
-	 TMR0_delayms(20);
+	 TMR0_delayms(MS_DELAY_20);
 	 
 }
 
@@ -145,7 +151,7 @@ void APP_start()
 				MOTOR_turnon(MOTOR2_ID);
 				MOTOR_turnon(MOTOR3_ID);
 				MOTOR_turnon(MOTOR4_ID);
-				LCD_goto(0,1) ;
+				LCD_goto(LCD_POS_0, LCD_POS_1) ;
 				TMR0_delaymicros(SPEED_50_ON_TIME);
 				
 				MOTOR_turnoff(MOTOR1_ID);
@@ -163,7 +169,7 @@ void APP_start()
 			MOTOR_turnon(MOTOR2_ID);
 			MOTOR_turnon(MOTOR3_ID);
 			MOTOR_turnon(MOTOR4_ID);
-			LCD_goto(0,1) ;
+			LCD_goto(LCD_POS_0 , LCD_POS_1) ;
 			TMR0_delaymicros(SPEED_30_ON_TIME);
 			
 			MOTOR_turnoff(MOTOR1_ID);
@@ -183,7 +189,7 @@ void APP_start()
 		MOTOR_turnon(MOTOR2_ID);
 		MOTOR_turnon(MOTOR3_ID);
 		MOTOR_turnon(MOTOR4_ID);
-		LCD_goto(0,1) ;
+		LCD_goto(LCD_POS_0 , LCD_POS_1) ;
 		TMR0_delaymicros(SPEED_30_ON_TIME);
 		
 		MOTOR_turnoff(MOTOR1_ID);
@@ -222,7 +228,7 @@ void APP_start()
 			MOTOR_turnon(MOTOR2_ID);
 			MOTOR_turnon(MOTOR3_ID);
 			MOTOR_turnon(MOTOR4_ID);
-			LCD_goto(0,1) ;
+			LCD_goto(LCD_POS_0 , LCD_POS_1) ;
 			TMR0_delaymicros(SPEED_30_ON_TIME);
 			
 			MOTOR_turnoff(MOTOR1_ID);
@@ -250,7 +256,7 @@ void APP_start()
 			MOTOR_turnon(MOTOR2_ID);
 			MOTOR_turnon(MOTOR3_ID);
 			MOTOR_turnon(MOTOR4_ID);
-			LCD_goto(0,1) ;
+			LCD_goto(LCD_POS_0 , LCD_POS_1) ;
 			TMR0_delaymicros(SPEED_30_ON_TIME);
 			
 			MOTOR_turnoff(MOTOR1_ID);
@@ -294,7 +300,7 @@ void APP_start()
 				MOTOR_turnon(MOTOR2_ID);
 				MOTOR_turnon(MOTOR3_ID);
 				MOTOR_turnon(MOTOR4_ID);
-				LCD_goto(0,1) ;
+				LCD_goto(LCD_POS_0 , LCD_POS_1) ;
 				TMR0_delaymicros(SPEED_30_ON_TIME);
 				
 				MOTOR_turnoff(MOTOR1_ID);
@@ -310,41 +316,78 @@ void APP_start()
 	}
 }
 
-
-/** EXTI0 **/
-ISR(INT0_vect)
+void INT0_routine(void)
 {
 	u8_echoedge++ ; /** INCREASE THE ECHO BY 1 **/
 	
-	if(u8_echoedge == 1) /** FIRST CHANGE (RISING EDGE) **/
+	if(u8_echoedge == FIRST_EDGE ) /** FIRST CHANGE (RISING EDGE) **/
 	{
 		ICU_start(); /** START ICU / COUNTING **/
 	}
 	
-	else if(u8_echoedge == 2) /** SECOND CHANGE (FALLING EDGE) **/
+	else if(u8_echoedge == SECOND_EDGE) /** SECOND CHANGE (FALLING EDGE) **/
 	{
 		ICU_stop(); /** STOP ICU / COUNTING **/
 		
 		u16_g_time = ICU_getvalue(); /** GET PULSE LENGTH **/
 		
-		ICU_setcounterval(0); /** START COUNTING FROM ZERO **/
+		ICU_setcounterval(INITIATE_COUNTER_VAL); /** START COUNTING FROM ZERO **/
 				
-		u8_echoedge = 0 ; /** REINITIALIZE ECHO EDGE TO 0 TO REPEAT IN ANY CHANGE AGAIN **/
+		u8_echoedge = 0 ;     /** REINITIALIZE ECHO EDGE TO 0 TO REPEAT IN ANY CHANGE AGAIN **/
 		
-		u8_g_distance = (u16_g_time/464) ; /** CALCULATE THE DISTANCE **/
+		u8_g_distance = (u16_g_time / US_DIVIDER) ; /** CALCULATE THE DISTANCE **/
 	}
 }
 
-/** TIMER 1 OVERFLOW **/
-ISR(TIMER1_OVF_vect)
+
+/** FUNCTION TO BE EXECUTED WHEN TMR1 OVERFLOW FIRED **/
+void TMR1_routine(void)
 {
 	/** DO NOTHING **/
 }
 
-/** TIMER 0 OVERFLOW **/
+/** FUNCTION TO BE EXECUTED WHEN TMR2 OVERFLOW FIRED **/
+void TMR2_routine(void)
+{
+	u32_g_tick++ ; /** INCREASE TICKS **/
+}
+
+
+/** EXTI0 
+ISR(INT0_vect)
+{
+	u8_echoedge++ ; /** INCREASE THE ECHO BY 1 
+	
+	if(u8_echoedge == FIRST_EDGE ) /** FIRST CHANGE (RISING EDGE) 
+	{
+		ICU_start(); /** START ICU / COUNTING 
+	}
+	
+	else if(u8_echoedge == SECOND_EDGE) /** SECOND CHANGE (FALLING EDGE) 
+	{
+		ICU_stop(); /** STOP ICU / COUNTING 
+		
+		u16_g_time = ICU_getvalue(); /** GET PULSE LENGTH 
+		
+		ICU_setcounterval(INITIATE_COUNTER_VAL); /** START COUNTING FROM ZERO 
+				
+		u8_echoedge = 0 ;     /** REINITIALIZE ECHO EDGE TO 0 TO REPEAT IN ANY CHANGE AGAIN 
+		
+		u8_g_distance = (u16_g_time / US_DIVIDER) ; /** CALCULATE THE DISTANCE 
+	}
+}
+**/
+
+/** TIMER 1 OVERFLOW 
+ISR(TIMER1_OVF_vect)
+{
+	/** DO NOTHING 
+}**/
+
+/** TIMER 0 OVERFLOW 
 ISR(TIMER2_OVF_vect)
 {
-	u32_g_tick++ ; /** INCREASE TICKS  **/
-}
+	u32_g_tick++ ; /** INCREASE TICKS  
+}**/
 
 

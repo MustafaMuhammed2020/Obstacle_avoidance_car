@@ -47,4 +47,11 @@ void INT1_init(void);
 void INT2_init(void);
 
 
+/********************************************************/
+/** FUNCTION TO INITIALIZE INT2                         */
+/** ARGUMENTS  : POINTER TO ISR FUNCTION                */
+/** RETURNS    : VOID                                   */
+/********************************************************/
+void INT0_setcallback( void ( * INT0_ISR) (void) ) ;
+
 #endif /* EXTERNAL_INTERRUPT_H_ */

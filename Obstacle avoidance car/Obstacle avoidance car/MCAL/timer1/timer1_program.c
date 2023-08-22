@@ -6,6 +6,7 @@
 /***************************************************************/ 
 
 /** INCLUDE LIBRARIES **/
+#include "avr/interrupt.h"
 #include "../../SERVICE/common_macros.h"
 #include "../../SERVICE/standard_types.h"
 
@@ -19,6 +20,9 @@
 
 uint32_t u32_gs_NO_OF_OVS = 0 ; /** GLOBAL STATIC VARIABLE HOLDS THE NUBER OF OVERFLOWS **/
  
+void (* TMR1_OVF_callback ) (void ) ;  /** GLOBAL POINTER TO SET THE ISR OF TMR1 OVERFLOW **/
+
+
 /******************************************************************************/
 /** FUNCTION TO INITIALIZE TMR1 ACCORDING TO CONFIGURATION FILE              **/
 /** ARGUMENTS  : VOID                                                        **/
@@ -557,4 +561,19 @@ uint32_t TMR1_getovs(uint32_t u32_a_delay)
 	#endif
 	
 	return u32_a_ovs ;
+}
+
+/******************************************************************************/
+/** FUNCTION TO SET THE ISR OF TMR1 OVERFLOW                 	             **/
+/** ARGUMENTS  : POINTER TO FUNCTION                                         **/
+/** RETURN     : VOID                                                        **/
+/******************************************************************************/
+void TMR1_setcallback(void ( * TMR1_OVF_ISR ) (void) )
+{
+	TMR1_OVF_callback = TMR1_OVF_ISR ; 
+}
+
+ISR(TIMER1_OVF_vect)
+{
+	TMR1_OVF_callback ;
 }

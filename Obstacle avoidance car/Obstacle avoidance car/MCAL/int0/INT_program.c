@@ -6,6 +6,7 @@
 /***************************************************/
 
 /** INCLUDE LIBRARIES **/
+#include "avr/interrupt.h"
 #include "../../SERVICE/common_macros.h"
 #include "../../SERVICE/standard_types.h"
 
@@ -14,6 +15,10 @@
 #include "INT_interface.h"
 #include "INT_private.h"
 #include "INT_config.h"
+
+void (* EXTINT0_callback_ptr) (void ) ; /** GLOBAL POINTER TO SET THE EXTERNAL INT0 CALLBACK FUNCTION **/
+void (* EXTINT1_callback_ptr) (void ) ; /** GLOBAL POINTER TO SET THE EXTERNAL INT1 CALLBACK FUNCTION **/
+void (* EXTINT2_callback_ptr) (void ) ; /** GLOBAL POINTER TO SET THE EXTERNAL INT2 CALLBACK FUNCTION **/
 
 
 /********************************************************/
@@ -130,4 +135,20 @@ void INT2_init(void)
 	#endif
 	
 	
+}
+
+
+/********************************************************/
+/** FUNCTION TO INITIALIZE INT2                         */
+/** ARGUMENTS  : POINTER TO ISR FUNCTION                */
+/** RETURNS    : VOID                                   */
+/********************************************************/
+void INT0_setcallback( void ( * INT0_ISR) (void) ) 
+{
+	EXTINT0_callback_ptr = INT0_ISR ; /** INT0 GLOBAL POINTER POINTS TO THE PASSED FUNCTION NAME **/
+}
+
+ISR(INT0_vect)
+{
+	EXTINT0_callback_ptr ; 
 }
