@@ -249,12 +249,12 @@ void APP_start()
 			  US_sendtrigger(); /** SEND TRIGGER **/
 		   }
 		
-				MOTOR_rotateclkdir(MOTOR1_ID); /** MOVE BACKWORDS  **/
-				MOTOR_rotateclkdir(MOTOR2_ID);
-				MOTOR_rotateclkdir(MOTOR3_ID);
-				MOTOR_rotateclkdir(MOTOR4_ID);
+			MOTOR_rotateclkdir(MOTOR1_ID); /** RETURN TO DEFAULT DIRECTION  **/
+			MOTOR_rotateclkdir(MOTOR2_ID);
+			MOTOR_rotateclkdir(MOTOR3_ID);
+			MOTOR_rotateclkdir(MOTOR4_ID);
 		
-		}
+	}
 }
 
 

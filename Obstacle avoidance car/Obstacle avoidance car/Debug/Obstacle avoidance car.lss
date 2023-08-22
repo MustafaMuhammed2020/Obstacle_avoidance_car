@@ -781,16 +781,16 @@ void APP_start()
 			  US_sendtrigger(); /** SEND TRIGGER **/
 		   }
 		
-				MOTOR_rotateclkdir(MOTOR1_ID); /** MOVE BACKWORDS  **/
+			MOTOR_rotateclkdir(MOTOR1_ID); /** RETURN TO DEFAULT DIRECTION  **/
      524:	80 e0       	ldi	r24, 0x00	; 0
      526:	0e 94 1d 06 	call	0xc3a	; 0xc3a <MOTOR_rotateclkdir>
-				MOTOR_rotateclkdir(MOTOR2_ID);
+			MOTOR_rotateclkdir(MOTOR2_ID);
      52a:	81 e0       	ldi	r24, 0x01	; 1
      52c:	0e 94 1d 06 	call	0xc3a	; 0xc3a <MOTOR_rotateclkdir>
-				MOTOR_rotateclkdir(MOTOR3_ID);
+			MOTOR_rotateclkdir(MOTOR3_ID);
      530:	82 e0       	ldi	r24, 0x02	; 2
      532:	0e 94 1d 06 	call	0xc3a	; 0xc3a <MOTOR_rotateclkdir>
-				MOTOR_rotateclkdir(MOTOR4_ID);
+			MOTOR_rotateclkdir(MOTOR4_ID);
      536:	83 e0       	ldi	r24, 0x03	; 3
      538:	0e 94 1d 06 	call	0xc3a	; 0xc3a <MOTOR_rotateclkdir>
 		TMR2_stop(); /** STOP TIMER 2 **/
@@ -805,11 +805,11 @@ void APP_start()
      546:	94 42       	sbci	r25, 0x24	; 36
      548:	08 f4       	brcc	.+2      	; 0x54c <__EEPROM_REGION_LENGTH__+0x14c>
      54a:	a9 cf       	rjmp	.-174    	; 0x49e <__EEPROM_REGION_LENGTH__+0x9e>
-				MOTOR_rotateclkdir(MOTOR2_ID);
-				MOTOR_rotateclkdir(MOTOR3_ID);
-				MOTOR_rotateclkdir(MOTOR4_ID);
+			MOTOR_rotateclkdir(MOTOR2_ID);
+			MOTOR_rotateclkdir(MOTOR3_ID);
+			MOTOR_rotateclkdir(MOTOR4_ID);
 		
-		}
+	}
 }
      54c:	08 95       	ret
 
