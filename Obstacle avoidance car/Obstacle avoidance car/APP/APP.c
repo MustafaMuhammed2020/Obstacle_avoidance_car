@@ -123,14 +123,14 @@ void APP_setentry()
 	 LCD_sendcmd(LCD_CLEAR);
 	 TMR0_delayms(MS_DELAY_20);
 	 
-	 LCD_goto(LCD_POS_0, LCD_POS_1) ;
+	 LCD_goto(LCD_POS_0, LCD_POS_1) ; /** DISPLAY THE DISTANCE **/
 	 LCD_writestr("Dis:");
 	 
-	 LCD_goto(LCD_POS_0, 8) ;
+	 LCD_goto(LCD_POS_0, LCD_POS_8) ; /** DISPLAY THE SPEED **/
 	 LCD_writechar('S');
 	 LCD_writechar(':');
 	 
-	 LCD_goto(LCD_POS_1, LCD_POS_1) ;
+	 LCD_goto(LCD_POS_1, LCD_POS_1) ; /** DISPLAY THE DIRECTION OF MOVEMENT **/
 	 LCD_writestr("Dir:");
 	 
 }
@@ -156,7 +156,7 @@ void APP_start()
 				MOTOR_turnon(MOTOR2_ID);
 				MOTOR_turnon(MOTOR3_ID);
 				MOTOR_turnon(MOTOR4_ID);
-				LCD_goto(LCD_POS_0, 10) ;
+				LCD_goto(LCD_POS_0, LCD_POS_10) ;
 				LCD_writestr("50%");
 				TMR0_delaymicros(SPEED_50_ON_TIME);
 				
@@ -164,9 +164,9 @@ void APP_start()
 				MOTOR_turnoff(MOTOR2_ID);
 				MOTOR_turnoff(MOTOR3_ID);
 				MOTOR_turnoff(MOTOR4_ID);
-				LCD_goto(LCD_POS_0, 5) ;
+				LCD_goto(LCD_POS_0, LCD_POS_5) ;
 				LCD_writeint(u8_g_distance);
-				LCD_goto(LCD_POS_1, 5) ;
+				LCD_goto(LCD_POS_1, LCD_POS_5) ;
 				LCD_writechar('F');
 			}
 					
@@ -177,7 +177,7 @@ void APP_start()
 			MOTOR_turnon(MOTOR2_ID);
 			MOTOR_turnon(MOTOR3_ID);
 			MOTOR_turnon(MOTOR4_ID);
-			LCD_goto(LCD_POS_0, 10) ;
+			LCD_goto(LCD_POS_0, LCD_POS_10) ;
 			LCD_writestr("30%");
 			TMR0_delaymicros(SPEED_30_ON_TIME);
 			
@@ -185,9 +185,9 @@ void APP_start()
 			MOTOR_turnoff(MOTOR2_ID);
 			MOTOR_turnoff(MOTOR3_ID);
 			MOTOR_turnoff(MOTOR4_ID);
-			LCD_goto(LCD_POS_0, 5) ;
+			LCD_goto(LCD_POS_0, LCD_POS_5) ;
 			LCD_writeint(u8_g_distance);
-			LCD_goto(LCD_POS_1, 5) ;
+			LCD_goto(LCD_POS_1, LCD_POS_5) ;
 			LCD_writechar('F');
 			US_sendtrigger(); /** SEND TRIGGER **/
 		}
@@ -199,7 +199,7 @@ void APP_start()
 		MOTOR_turnon(MOTOR2_ID);
 		MOTOR_turnon(MOTOR3_ID);
 		MOTOR_turnon(MOTOR4_ID);
-		LCD_goto(LCD_POS_0, 10) ;
+		LCD_goto(LCD_POS_0, LCD_POS_10) ;
 		LCD_writestr("30%");
 		TMR0_delaymicros(SPEED_30_ON_TIME);
 		
@@ -207,9 +207,9 @@ void APP_start()
 		MOTOR_turnoff(MOTOR2_ID);
 		MOTOR_turnoff(MOTOR3_ID);
 		MOTOR_turnoff(MOTOR4_ID);
-		LCD_goto(LCD_POS_0,5) ;
+		LCD_goto(LCD_POS_0, LCD_POS_5) ;
 		LCD_writeint(u8_g_distance);
-		LCD_goto(LCD_POS_1, 5) ;
+		LCD_goto(LCD_POS_1, LCD_POS_5) ;
 		LCD_writechar('F');
 		US_sendtrigger(); /** SEND TRIGGER **/
 	}
@@ -225,10 +225,15 @@ void APP_start()
 		MOTOR_turnoff(MOTOR3_ID);
 		MOTOR_turnoff(MOTOR4_ID);
 		
-		LCD_goto(LCD_POS_0, 5) ;
+		LCD_goto(LCD_POS_0, LCD_POS_10) ;
+		LCD_writestr("30%");
+		
+		LCD_goto(LCD_POS_0, LCD_POS_5) ;
 		LCD_writeint(u8_g_distance);
-		LCD_goto(LCD_POS_1, 5) ;
+		
+		LCD_goto(LCD_POS_1, LCD_POS_5) ;
 		LCD_writechar('R');
+		
 		TMR2_start() ; /** START TIMER 2 **/
 		while (u32_g_tick < u32_g_delay)
 		{	
@@ -255,7 +260,7 @@ void APP_start()
 			  MOTOR_turnon(MOTOR2_ID);
 		      MOTOR_turnon(MOTOR3_ID);
 			  MOTOR_turnon(MOTOR4_ID);
-			  LCD_goto(LCD_POS_0, 5) ;
+			  LCD_goto(LCD_POS_0, LCD_POS_5) ;
 			  TMR0_delaymicros(SPEED_30_ON_TIME);
 			
 			  MOTOR_turnoff(MOTOR1_ID);
@@ -263,7 +268,7 @@ void APP_start()
 			  MOTOR_turnoff(MOTOR3_ID);
 			  MOTOR_turnoff(MOTOR4_ID);
 			  LCD_writeint(u8_g_distance);
-			  LCD_goto(LCD_POS_1, 5) ;
+			  LCD_goto(LCD_POS_1, LCD_POS_5) ;
 			  LCD_writechar('B');
 			  US_sendtrigger(); /** SEND TRIGGER **/
 		   }
@@ -272,7 +277,6 @@ void APP_start()
 			MOTOR_rotateclkdir(MOTOR2_ID);
 			MOTOR_rotateclkdir(MOTOR3_ID);
 			MOTOR_rotateclkdir(MOTOR4_ID);
-		
 	}
 }
 

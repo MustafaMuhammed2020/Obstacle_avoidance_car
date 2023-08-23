@@ -27,6 +27,9 @@
 #define LCD_POS_0          0
 #define LCD_POS_1          1
 #define LCD_POS_2          2
+#define LCD_POS_5          5
+#define LCD_POS_8          8
+#define LCD_POS_10         10
 #define FIRST_EDGE         1
 #define SECOND_EDGE        2
 #define US_DIVIDER         464
