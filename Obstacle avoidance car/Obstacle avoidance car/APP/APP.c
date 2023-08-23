@@ -123,6 +123,16 @@ void APP_setentry()
 	 LCD_sendcmd(LCD_CLEAR);
 	 TMR0_delayms(MS_DELAY_20);
 	 
+	 LCD_goto(LCD_POS_0, LCD_POS_1) ;
+	 LCD_writestr("Dis:");
+	 
+	 LCD_goto(LCD_POS_0, 8) ;
+	 LCD_writechar('S');
+	 LCD_writechar(':');
+	 
+	 LCD_goto(LCD_POS_1, LCD_POS_1) ;
+	 LCD_writestr("Dir:");
+	 
 }
 
 void APP_start()
@@ -139,23 +149,25 @@ void APP_start()
 			
 			TMR2_start() ; /** START TIMER 2 **/
 		
-			while (u32_g_tick < u32_g_delay)
+			while (u32_g_tick < u32_g_delay && (u16_g_time/DISTANCE_DIV) > SAFE_DISTANCE )
 			{
 				/** MOVE WITH 50% SPEED FOR 5 MIN **/
 				MOTOR_turnon(MOTOR1_ID);
 				MOTOR_turnon(MOTOR2_ID);
 				MOTOR_turnon(MOTOR3_ID);
 				MOTOR_turnon(MOTOR4_ID);
-				LCD_goto(LCD_POS_0, LCD_POS_1) ;
+				LCD_goto(LCD_POS_0, 10) ;
+				LCD_writestr("50%");
 				TMR0_delaymicros(SPEED_50_ON_TIME);
 				
 				MOTOR_turnoff(MOTOR1_ID);
 				MOTOR_turnoff(MOTOR2_ID);
 				MOTOR_turnoff(MOTOR3_ID);
 				MOTOR_turnoff(MOTOR4_ID);
-				LCD_writechar('D');
-				LCD_writechar(':');
+				LCD_goto(LCD_POS_0, 5) ;
 				LCD_writeint(u8_g_distance);
+				LCD_goto(LCD_POS_1, 5) ;
+				LCD_writechar('F');
 			}
 					
 			TMR2_stop() ; /** STOP TIMER2 AFTER THE 5 SECONDS **/
@@ -165,17 +177,18 @@ void APP_start()
 			MOTOR_turnon(MOTOR2_ID);
 			MOTOR_turnon(MOTOR3_ID);
 			MOTOR_turnon(MOTOR4_ID);
-			LCD_goto(LCD_POS_0 , LCD_POS_1) ;
+			LCD_goto(LCD_POS_0, 10) ;
+			LCD_writestr("30%");
 			TMR0_delaymicros(SPEED_30_ON_TIME);
 			
 			MOTOR_turnoff(MOTOR1_ID);
 			MOTOR_turnoff(MOTOR2_ID);
 			MOTOR_turnoff(MOTOR3_ID);
 			MOTOR_turnoff(MOTOR4_ID);
-			LCD_writechar('D');
-			LCD_writechar(':');
+			LCD_goto(LCD_POS_0, 5) ;
 			LCD_writeint(u8_g_distance);
-			
+			LCD_goto(LCD_POS_1, 5) ;
+			LCD_writechar('F');
 			US_sendtrigger(); /** SEND TRIGGER **/
 		}
 
@@ -186,16 +199,18 @@ void APP_start()
 		MOTOR_turnon(MOTOR2_ID);
 		MOTOR_turnon(MOTOR3_ID);
 		MOTOR_turnon(MOTOR4_ID);
-		LCD_goto(LCD_POS_0 , LCD_POS_1) ;
+		LCD_goto(LCD_POS_0, 10) ;
+		LCD_writestr("30%");
 		TMR0_delaymicros(SPEED_30_ON_TIME);
 		
 		MOTOR_turnoff(MOTOR1_ID);
 		MOTOR_turnoff(MOTOR2_ID);
 		MOTOR_turnoff(MOTOR3_ID);
 		MOTOR_turnoff(MOTOR4_ID);
-		LCD_writechar('D');
-		LCD_writechar(':');
+		LCD_goto(LCD_POS_0,5) ;
 		LCD_writeint(u8_g_distance);
+		LCD_goto(LCD_POS_1, 5) ;
+		LCD_writechar('F');
 		US_sendtrigger(); /** SEND TRIGGER **/
 	}
 	
@@ -210,11 +225,10 @@ void APP_start()
 		MOTOR_turnoff(MOTOR3_ID);
 		MOTOR_turnoff(MOTOR4_ID);
 		
-		LCD_goto(LCD_POS_0 , LCD_POS_1) ;
-		LCD_writechar('D');
-		LCD_writechar(':');
+		LCD_goto(LCD_POS_0, 5) ;
 		LCD_writeint(u8_g_distance);
-		
+		LCD_goto(LCD_POS_1, 5) ;
+		LCD_writechar('R');
 		TMR2_start() ; /** START TIMER 2 **/
 		while (u32_g_tick < u32_g_delay)
 		{	
@@ -241,16 +255,16 @@ void APP_start()
 			  MOTOR_turnon(MOTOR2_ID);
 		      MOTOR_turnon(MOTOR3_ID);
 			  MOTOR_turnon(MOTOR4_ID);
-			  LCD_goto(LCD_POS_0 , LCD_POS_1) ;
+			  LCD_goto(LCD_POS_0, 5) ;
 			  TMR0_delaymicros(SPEED_30_ON_TIME);
 			
 			  MOTOR_turnoff(MOTOR1_ID);
 			  MOTOR_turnoff(MOTOR2_ID);
 			  MOTOR_turnoff(MOTOR3_ID);
 			  MOTOR_turnoff(MOTOR4_ID);
-			  LCD_writechar('D');
-			  LCD_writechar(':');
 			  LCD_writeint(u8_g_distance);
+			  LCD_goto(LCD_POS_1, 5) ;
+			  LCD_writechar('B');
 			  US_sendtrigger(); /** SEND TRIGGER **/
 		   }
 		
