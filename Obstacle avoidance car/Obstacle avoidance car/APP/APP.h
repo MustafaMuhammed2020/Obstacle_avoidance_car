@@ -19,6 +19,7 @@
 #define DISTANCE_DIV       464
 #define SPEED_50_ON_TIME   9200
 #define SPEED_30_ON_TIME   100
+#define SPEED_30_OFF_TIME  20000
 #define START_BTN          '1'
 #define MS_DELAY_50        50
 #define MS_DELAY_100       100 

@@ -185,6 +185,8 @@ void APP_start()
 			MOTOR_turnoff(MOTOR2_ID);
 			MOTOR_turnoff(MOTOR3_ID);
 			MOTOR_turnoff(MOTOR4_ID);
+			
+			TMR0_delaymicros(SPEED_30_OFF_TIME);
 			LCD_goto(LCD_POS_0, LCD_POS_5) ;
 			LCD_writeint(u8_g_distance);
 			LCD_goto(LCD_POS_1, LCD_POS_5) ;
@@ -208,6 +210,7 @@ void APP_start()
 		MOTOR_turnoff(MOTOR3_ID);
 		MOTOR_turnoff(MOTOR4_ID);
 		
+		TMR0_delaymicros(SPEED_30_OFF_TIME);
 		LCD_goto(LCD_POS_0, LCD_POS_5) ;
 		LCD_writeint(u8_g_distance);
 		LCD_goto(LCD_POS_1, LCD_POS_5) ;
@@ -229,6 +232,7 @@ void APP_start()
 		LCD_goto(LCD_POS_0, LCD_POS_10) ;
 		LCD_writestr("30%");
 		
+		TMR0_delaymicros(SPEED_30_OFF_TIME);
 		LCD_goto(LCD_POS_0, LCD_POS_5) ;
 		LCD_writeint(u8_g_distance);
 		
@@ -270,7 +274,9 @@ void APP_start()
 			  MOTOR_turnoff(MOTOR2_ID);
 			  MOTOR_turnoff(MOTOR3_ID);
 			  MOTOR_turnoff(MOTOR4_ID);
-			   LCD_goto(LCD_POS_0, LCD_POS_5) ;
+			  
+			  TMR0_delaymicros(SPEED_30_OFF_TIME);
+			  LCD_goto(LCD_POS_0, LCD_POS_5) ;
 			  LCD_writeint(u8_g_distance);
 			  LCD_goto(LCD_POS_1, LCD_POS_5) ;
 			  LCD_writechar('B');
