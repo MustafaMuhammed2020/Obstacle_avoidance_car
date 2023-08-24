@@ -207,6 +207,7 @@ void APP_start()
 		MOTOR_turnoff(MOTOR2_ID);
 		MOTOR_turnoff(MOTOR3_ID);
 		MOTOR_turnoff(MOTOR4_ID);
+		
 		LCD_goto(LCD_POS_0, LCD_POS_5) ;
 		LCD_writeint(u8_g_distance);
 		LCD_goto(LCD_POS_1, LCD_POS_5) ;
@@ -253,6 +254,7 @@ void APP_start()
 		MOTOR_rotateanticlkdir(MOTOR3_ID);
 		MOTOR_rotateanticlkdir(MOTOR4_ID);
 		
+		
 		while ((u16_g_time/DISTANCE_DIV) <= DISTANCE_20)
 		   {
 			  /** GO BACKWARDS WITH 30% SPEED **/
@@ -260,13 +262,15 @@ void APP_start()
 			  MOTOR_turnon(MOTOR2_ID);
 		      MOTOR_turnon(MOTOR3_ID);
 			  MOTOR_turnon(MOTOR4_ID);
-			  LCD_goto(LCD_POS_0, LCD_POS_5) ;
+			  LCD_goto(LCD_POS_0, LCD_POS_10) ;
+			  LCD_writestr("30%");
 			  TMR0_delaymicros(SPEED_30_ON_TIME);
 			
 			  MOTOR_turnoff(MOTOR1_ID);
 			  MOTOR_turnoff(MOTOR2_ID);
 			  MOTOR_turnoff(MOTOR3_ID);
 			  MOTOR_turnoff(MOTOR4_ID);
+			   LCD_goto(LCD_POS_0, LCD_POS_5) ;
 			  LCD_writeint(u8_g_distance);
 			  LCD_goto(LCD_POS_1, LCD_POS_5) ;
 			  LCD_writechar('B');
