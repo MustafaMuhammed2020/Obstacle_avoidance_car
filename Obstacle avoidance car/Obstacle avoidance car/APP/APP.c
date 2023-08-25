@@ -95,11 +95,21 @@ void APP_setentry()
  			{
 				LCD_goto(LCD_POS_1 , LCD_POS_1);
 				LCD_writestr("LEFT ROTATION");
+				
+				MOTOR_rotateanticlkdir(MOTOR1_ID); /** SET ROTATION DIRECTION "LEFT" **/
+				MOTOR_rotateanticlkdir(MOTOR2_ID);
+				MOTOR_rotateanticlkdir(MOTOR3_ID);
+				MOTOR_rotateanticlkdir(MOTOR4_ID);
 			}
 	 		else if(u8_g_rotationcounter == RIGHT_ROTATION) /** RIGHT ROTATION **/
 	 		{
  				LCD_goto(LCD_POS_1 , LCD_POS_1);
  				LCD_writestr("RIGHT ROTATION");
+				 
+				 MOTOR_rotateclkdir(MOTOR1_ID);  /** SET ROTATION DIRECTION "RIGHT" **/
+				 MOTOR_rotateclkdir(MOTOR2_ID);
+				 MOTOR_rotateclkdir(MOTOR3_ID);
+				 MOTOR_rotateclkdir(MOTOR4_ID);
  			}
 			u8_a_btnstatus = 0 ; /** REINITIALIZE THE BUTTON STATE **/
  		}
@@ -253,10 +263,20 @@ void APP_start()
 
 	while((u16_g_time/DISTANCE_DIV) < DISTANCE_20) /** WHEN DISTANCE IS LESS THAN 20 **/
 	{
-		MOTOR_rotateanticlkdir(MOTOR1_ID); /** MOVE BACKWORDS  **/
-		MOTOR_rotateanticlkdir(MOTOR2_ID);
-		MOTOR_rotateanticlkdir(MOTOR3_ID);
-		MOTOR_rotateanticlkdir(MOTOR4_ID);
+		if ( u8_g_rotationcounter == LEFT_ROTATION )
+		{
+			MOTOR_rotateclkdir(MOTOR1_ID); /** MOVE BACKWORDS  **/
+			MOTOR_rotateclkdir(MOTOR2_ID);
+			MOTOR_rotateclkdir(MOTOR3_ID);
+			MOTOR_rotateclkdir(MOTOR4_ID);
+		}
+		else if ( u8_g_rotationcounter == RIGHT_ROTATION )
+		{
+			MOTOR_rotateanticlkdir(MOTOR1_ID); /** MOVE BACKWORDS  **/
+			MOTOR_rotateanticlkdir(MOTOR2_ID);
+			MOTOR_rotateanticlkdir(MOTOR3_ID);
+			MOTOR_rotateanticlkdir(MOTOR4_ID);
+		}
 		
 		
 		while ((u16_g_time/DISTANCE_DIV) <= DISTANCE_20)
@@ -282,11 +302,22 @@ void APP_start()
 			  LCD_writechar('B');
 			  US_sendtrigger(); /** SEND TRIGGER **/
 		   }
-		
-			MOTOR_rotateclkdir(MOTOR1_ID); /** RETURN TO DEFAULT DIRECTION  **/
-			MOTOR_rotateclkdir(MOTOR2_ID);
-			MOTOR_rotateclkdir(MOTOR3_ID);
-			MOTOR_rotateclkdir(MOTOR4_ID);
+			
+			/** BACK TO THE PRESET DIRECTION **/
+			if ( u8_g_rotationcounter == LEFT_ROTATION )
+			{
+				MOTOR_rotateanticlkdir(MOTOR1_ID); 
+				MOTOR_rotateanticlkdir(MOTOR2_ID);
+				MOTOR_rotateanticlkdir(MOTOR3_ID);
+				MOTOR_rotateanticlkdir(MOTOR4_ID);
+			}
+			else if ( u8_g_rotationcounter == RIGHT_ROTATION )
+			{
+				MOTOR_rotateclkdir(MOTOR1_ID); 
+				MOTOR_rotateclkdir(MOTOR2_ID);
+				MOTOR_rotateclkdir(MOTOR3_ID);
+				MOTOR_rotateclkdir(MOTOR4_ID);
+			}
 	}
 }
 
